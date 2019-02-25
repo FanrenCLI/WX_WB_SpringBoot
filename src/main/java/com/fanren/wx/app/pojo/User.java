@@ -1,5 +1,10 @@
 package com.fanren.wx.app.pojo;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+
 public class User {
     /**
      *
