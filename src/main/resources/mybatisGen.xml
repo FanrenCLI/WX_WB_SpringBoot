@@ -29,7 +29,17 @@
                              targetProject=".\src\main\java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table tableName="user_list" domainObjectName="User" ></table>
+        <!--<table tableName="user_list" domainObjectName="User" ></table>-->
+        <!--<table tableName="student_list" domainObjectName="Student" ></table>-->
+        <!--<table tableName="college_list" domainObjectName="College" ></table>-->
+        <!--<table tableName="major_list" domainObjectName="Major" ></table>-->
+        <!--<table tableName="class_list" domainObjectName="Class" ></table>-->
+        <!--<table tableName="teacher_list" domainObjectName="Teacher" ></table>-->
+        <!--<table tableName="curriculum_list" domainObjectName="Curriculum" ></table>-->
+        <!--<table tableName="report_list" domainObjectName="Report" ></table>-->
+        <!--<table tableName="resource_list" domainObjectName="Resource" ></table>-->
+        <!--<table tableName="badworld_list" domainObjectName="Badworld" ></table>-->
+        <table tableName="attend_list" domainObjectName="Attend" />
     </context>
 
 </generatorConfiguration>

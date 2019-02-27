@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>欢迎页面-X-admin2.0</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../css/font.css">
+		<link rel="stylesheet" href="../css/xadmin.css">
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/xadmin.js"></script>
+		<script type="text/javascript">
+			layui.use(['form', 'layer'], function() {
+				$ = layui.jquery;
+				var form = layui.form;
+				var layer = layui.layer;
+				$(function(){
+					$("#exam").click(function(){
+						var data = $("#badworld").val();
+						$.ajax({
+							url:"badworld_exam",
+							type:"POST",
+							async:true,
+							dataType:"json",
+							data:{"data":data},
+							success:function (data) {
+								//alert(JSON.stringify(data));
+								if (data != null && data!="") {
+									$("#text").text("");
+									$("#text").text("敏感词："+data);
+								}
+							},
+						});
+					});
+					$("#filter").click(function(){
+						var data = $("textarea").val();
+						$.ajax({
+							url:"badworld_filter",
+							type:"POST",
+							async:true,
+							dataType:"text",
+							data:{"data":data},
+							success:function (data) {
+								//alert(JSON.stringify(data));
+								if (data != null && data!="") {
+									$("#text").text(data);
+								}
+							},
+						});
+					});
+					$("#clear").click(function(){
+						$("#text").text("");
+						$("#badworld").val("");
+					});
+					
+					$("#synthesiz").click(function(){
+						var data = $("#textToMp3").val();
+						$.ajax({
+							url:"TextToMp3",
+							type:"POST",
+							async:true,
+							dataType:"text",
+							data:{"data":data},
+							success:function (data) {
+								layer.msg("语音合成成功，请点击下方的播放器！");
+								$("#mp3").append("<source src=\""+data+"\"></source>")
+							},
+						});
+					});
+					$("#recognice").click(function () {
+						layer.msg("正在识别请稍等！");
+						var formdata = new FormData($(formrecognice)[0]);
+						$.ajax({
+							url: "Mp3ToText",
+							type: 'post',
+							data: formdata,
+							cache: false,
+							async: true,
+							processData: false, //必须false才会避开jQuery对 formdata 的默认处理
+							contentType: false, //必须false才会自动加上正确的Content-Type
+							dataType:"text",
+							success: function(data) {
+								$("#mp3text").text(data);
+							},
+						});
+					});
+				});
+			});
+			function ImgExam() {
+				var formdata = new FormData($("#formfile")[0]);
+				$.ajax({
+					url: "img_exam",
+					type: 'post',
+					data: formdata,
+					cache: false,
+					async: false,
+					processData: false, //必须false才会避开jQuery对 formdata 的默认处理
+					contentType: false, //必须false才会自动加上正确的Content-Type
+					dataType:"text",
+					success: function(data) {
+						layer.alert("检测结果: "+data);
+					},
+				});
+			};
+		</script>
+	</head>
+
+	<body>
+		<div class="x-body">
+			<fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px;">
+				<legend>敏感词检测</legend>
+				<form id="formdata" class="layui-form layui-form-pane" onsubmit="return false">
+					<div class="layui-form-item layui-form-text">
+					    <label class="layui-form-label">文本域</label>
+					    <div class="layui-input-block">
+					      <textarea id="badworld" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <button class="layui-btn" id="exam">敏感词检测</button>
+					    <button class="layui-btn" id="filter">敏感词过滤</button>
+					    <button class="layui-btn" id="clear">清空</button>
+					</div>
+				</form>
+				<div class="layui-card" >
+				  <div id="text" class="layui-card-body" style="background-color: #f0f0f0; width: 1263px;height: 100px; ">
+				    
+				  </div>
+				</div>
+			</fieldset>
+			<fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px;">
+				<legend>色情图片检测</legend>
+				<form id="formfile" enctype="multipart/form-data" onsubmit="return false">
+					<input type="file" name="file" id="file">
+					<button class="layui-btn" onclick="ImgExam()">检测</button>
+				</form>
+			</fieldset>
+			<fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px;">
+				<legend>语音合成/识别</legend>
+				<form id="formsynthesiz" class="layui-form layui-form-pane" onsubmit="return false">
+					<div class="layui-form-item layui-form-text">
+					    <label class="layui-form-label">文本域</label>
+					    <div class="layui-input-block">
+					      <textarea id="textToMp3" placeholder="请输入内容" class="layui-textarea"></textarea>
+					    </div>
+					</div>
+					<div class="layui-form-item">
+					    <button class="layui-btn" id="synthesiz">语音合成</button>
+					</div>
+					<audio id="mp3" controls="controls">
+					</audio>
+				</form>
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+					<form id="formrecognice" enctype="multipart/form-data" onsubmit="return false">
+						<input type="file" name="filemp3" id="filemp3">
+						<button class="layui-btn" id="recognice">语音识别</button>
+					</form>
+					<div class="layui-card" >
+						<div id="mp3text" class="layui-card-body" style="background-color: #f0f0f0; width: 1263px;height: 100px; ">
+
+						</div>
+					</div>
+				</fieldset>
+			</fieldset>
+		</div>
+	</body>
+
+</html>
