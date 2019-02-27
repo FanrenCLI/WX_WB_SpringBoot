@@ -56,7 +56,7 @@ public class Login {
 
 
 
-                return entity;
+                return null;
             }
         }else {
             boolean flag = userService.checkUserInfo(id,pwd);
