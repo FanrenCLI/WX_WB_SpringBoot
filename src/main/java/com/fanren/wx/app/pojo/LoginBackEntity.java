@@ -21,5 +21,7 @@ public class LoginBackEntity {
     private String tel;
     private  String qq;
     private String wx;
+    private String status_1;
+
 
 }

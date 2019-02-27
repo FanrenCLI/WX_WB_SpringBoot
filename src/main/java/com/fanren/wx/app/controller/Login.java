@@ -1,8 +1,8 @@
 package com.fanren.wx.app.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fanren.wx.app.dao.UserMapper;
 import com.fanren.wx.app.pojo.LoginBackEntity;
+import com.fanren.wx.app.pojo.User;
 import com.fanren.wx.app.serivce.UserService;
 import com.fanren.wx.app.util.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.management.openmbean.OpenDataException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +30,7 @@ public class Login {
 
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public String checkLoginInfo(@RequestParam(value = "id",required = false) String id,
+    public LoginBackEntity checkLoginInfo(@RequestParam(value = "id",required = false) String id,
                                  @RequestParam(value = "pwd",required = false) String pwd,
                                  @RequestParam(value = "code") String code){
         String url = "https://api.weixin.qq.com/sns/jscode2session";
@@ -43,12 +43,20 @@ public class Login {
         JSONObject jsonObject=JSONObject.parseObject(wxResult);
         if(id==null&&pwd==null){
             String openid=jsonObject.getString("openid");
-            boolean flag = userService.checkOpenIdExist(openid);
-            if(!flag){
-                return null;
+            List<User> result= userService.checkOpenIdExist(openid);
+            LoginBackEntity entity=new LoginBackEntity();
+            if(!result.isEmpty()){
+                entity.setStatus_1("false");
+                return entity;
             }else{
                 //此处修改！！！！！！！！！！！！！！！！！！
-                return null;
+                User user=result.get(0);
+                entity.setId(user.getUserId());
+                entity.setStatus_1("true");
+
+
+
+                return entity;
             }
         }else {
             boolean flag = userService.checkUserInfo(id,pwd);
@@ -61,7 +69,6 @@ public class Login {
 
             }
         }
-
         return null;
     }
 

@@ -56,11 +56,11 @@ public class UserService {
             return true;
         }
     }
-    public boolean checkOpenIdExist(String openid){
+    public List<User> checkOpenIdExist(String openid){
         UserExample example=new UserExample();
         UserExample.Criteria criteria= example.createCriteria();
         criteria.andOpenIdEqualTo(openid);
         List<User> result = usermapper.selectByExample(example);
-        return result.isEmpty();
+        return result;
     }
 }
