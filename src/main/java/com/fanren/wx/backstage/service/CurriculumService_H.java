@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.CurriculumMapper;
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.app.pojo.CurriculumExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +15,15 @@ public class CurriculumService_H {
     CurriculumMapper curriculumMapper;
 
     public List<Curriculum> curriculum_list(){
-return null;
+        CurriculumExample curriculumExample = new CurriculumExample();
+        CurriculumExample.Criteria criteria = curriculumExample.createCriteria();
+        return curriculumMapper.selectByExample(curriculumExample);
     }
 
-    public int curriculum_number(){
-return 0;
+    public long curriculum_number(){
+        CurriculumExample curriculumExample = new CurriculumExample();
+        CurriculumExample.Criteria criteria = curriculumExample.createCriteria();
+        return curriculumMapper.countByExample(curriculumExample);
     }
 
     public Curriculum GetCurriculum(String name){
@@ -33,8 +38,12 @@ return 0;
         curriculumMapper.insert(curriculum);
     }
 
-    public void curriculum_update(Curriculum curriculum){
-
+    public void curriculum_update(Curriculum curriculum) throws Exception {
+        CurriculumExample curriculumExample = new CurriculumExample();
+        CurriculumExample.Criteria criteria = curriculumExample.createCriteria();
+        criteria.andKcmcEqualTo(curriculum.getKcmc());
+        Curriculum curr = (Curriculum) UpdateSelective.selectiveFun(curriculum);
+        curriculumMapper.updateByExampleSelective(curr,curriculumExample);
     }
 
     public void curriculum_delete(String name){

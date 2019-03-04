@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-public class BadworldController {
+public class BadworldController_H {
     @Autowired
     BadworldService_H badworldService_H;
 

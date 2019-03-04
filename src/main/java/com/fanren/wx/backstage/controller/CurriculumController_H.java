@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class CurriculumController {
+public class CurriculumController_H {
     @Autowired
     CurriculumService_H curriculumService_H;
 
@@ -22,7 +22,7 @@ public class CurriculumController {
 
     @RequestMapping("/bin/curriculum_number")
     @ResponseBody
-    public int curriculum_number(){
+    public long curriculum_number(){
         return curriculumService_H.curriculum_number();
     }
 
@@ -40,7 +40,7 @@ public class CurriculumController {
 
     @RequestMapping("/bin/curriculum_update")
     @ResponseBody
-    public void curriculum_update(Curriculum curriculum){
+    public void curriculum_update(Curriculum curriculum) throws Exception {
         curriculumService_H.curriculum_update(curriculum);
     }
 

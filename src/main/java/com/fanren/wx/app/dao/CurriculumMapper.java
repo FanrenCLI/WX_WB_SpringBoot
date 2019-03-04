@@ -2,9 +2,12 @@ package com.fanren.wx.app.dao;
 
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.app.pojo.CurriculumExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface CurriculumMapper {
 
 

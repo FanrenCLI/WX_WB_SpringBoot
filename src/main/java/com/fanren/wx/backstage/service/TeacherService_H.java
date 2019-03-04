@@ -27,7 +27,11 @@ public class TeacherService_H {
     }
 
     public void teacher_delete(String id){
-            }
+        TeacherExample teacherExample = new TeacherExample();
+        TeacherExample.Criteria criteria = teacherExample.createCriteria();
+        criteria.andTeacherIdEqualTo(id);
+        teacherMapper.deleteByExample(teacherExample);
+    }
 
     public long teacher_number(){
         TeacherExample teacherExample = new TeacherExample();
