@@ -43,4 +43,13 @@ public class CurriculumService {
         criteria.andKcmcEqualTo(name);
         curriculumMapper.deleteByExample(curriculumExample);
     }
+    /**上面是你的方法 下面的是我的  别乱写
+    * @Author: FanrenCLI
+    * @Date: 21:49 2019/2/28
+    * @param: null
+    * @Description: Method
+    */
+    public List<Curriculum> getCurrInfo(String classes){
+        return curriculumMapper.selectCurriculumByClasses(classes);
+    }
 }

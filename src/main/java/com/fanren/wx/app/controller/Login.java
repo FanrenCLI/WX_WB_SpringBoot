@@ -2,15 +2,18 @@ package com.fanren.wx.app.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.pojo.LoginBackEntity;
+import com.fanren.wx.app.pojo.Student;
 import com.fanren.wx.app.pojo.User;
-import com.fanren.wx.app.serivce.UserService;
+import com.fanren.wx.app.serivce.LJUserService;
 import com.fanren.wx.app.util.HttpClientUtil;
+import com.fanren.wx.backstage.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.awt.print.PrinterAbortException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +29,9 @@ import java.util.Map;
 public class Login {
 
     @Autowired
-    private UserService userService;
-
+    private LJUserService LJUserService;
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public LoginBackEntity checkLoginInfo(@RequestParam(value = "id",required = false) String id,
@@ -41,35 +45,58 @@ public class Login {
         param.put("grant_type", "authorization_code");
         String wxResult = HttpClientUtil.doGet(url, param);
         JSONObject jsonObject=JSONObject.parseObject(wxResult);
-        if(id==null&&pwd==null){
+        if(id==null||pwd==null||id.equals("")||pwd.equals("")){
             String openid=jsonObject.getString("openid");
-            List<User> result= userService.checkOpenIdExist(openid);
+            List<User> result= LJUserService.checkOpenIdExist(openid);
             LoginBackEntity entity=new LoginBackEntity();
             if(!result.isEmpty()){
-                entity.setStatus_1("false");
+                User user=result.get(0);
+                entity.setId(user.getRole().equals("stu")?"学生":"老师");
+                entity.setStatus_1("true");
+                Student stu_info=studentService.selectStudentById(user.getUserId());
+                entity.setClasses(stu_info.getClasses());
+                entity.setDepartment(stu_info.getDepartment());
+                entity.setMajor(stu_info.getMajor());
+                entity.setName(stu_info.getName());
+                entity.setQq(stu_info.getQq());
+                entity.setSex(stu_info.getSex());
+                entity.setStuid(stu_info.getStudentId());
+                entity.setTel(stu_info.getPhone());
+                entity.setWx(stu_info.getWx());
                 return entity;
             }else{
-                //此处修改！！！！！！！！！！！！！！！！！！
-                User user=result.get(0);
-                entity.setId(user.getUserId());
-                entity.setStatus_1("true");
-
-
-
-                return null;
+                entity.setStatus_1("false");
+                return entity;
             }
         }else {
-            boolean flag = userService.checkUserInfo(id,pwd);
+            boolean flag = LJUserService.checkUserInfo(id,pwd);
+            LoginBackEntity entity=new LoginBackEntity();
             if(!flag){
-                boolean openidExist=userService.checkOpenIdInfo(id,pwd);
+                boolean openidExist= LJUserService.checkOpenIdInfo(id,pwd);
                 if(!openidExist){
-                    userService.bindWXInfo(id,pwd,jsonObject.getString("openid"));
+                    LJUserService.bindWXInfo(id,pwd,jsonObject.getString("openid"));
                 }
+                Student stu_info=studentService.selectStudentById(id);
+                List<User> result= LJUserService.checkOpenIdExist(jsonObject.getString("openid"));
+                User user=result.get(0);
+                entity.setId(user.getRole().equals("stu")?"学生":"老师");
+                entity.setStatus_1("true");
+                entity.setClasses(stu_info.getClasses());
+                entity.setDepartment(stu_info.getDepartment());
+                entity.setMajor(stu_info.getMajor());
+                entity.setName(stu_info.getName());
+                entity.setQq(stu_info.getQq());
+                entity.setSex(stu_info.getSex());
+                entity.setStuid(stu_info.getStudentId());
+                entity.setTel(stu_info.getPhone());
+                entity.setWx(stu_info.getWx());
+                return entity;
             }else{
-
+                entity.setStatus_1("false");
+                return entity;
             }
         }
-        return null;
+
     }
 
 

@@ -19,7 +19,7 @@ public class LoginBackEntity {
     private String major;
     private String classes;
     private String tel;
-    private  String qq;
+    private String qq;
     private String wx;
     private String status_1;
 

@@ -6,9 +6,7 @@ import com.fanren.wx.app.pojo.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.PrimitiveIterator;
 
 /**
  * @Author: FanrenCLI
@@ -18,7 +16,7 @@ import java.util.PrimitiveIterator;
  */
 
 @Service
-public class UserService {
+public class LJUserService {
     /**
      * 检验用户登录信息
      * @param id
@@ -50,7 +48,7 @@ public class UserService {
         criteria.andUserIdEqualTo(id).andPwdEqualTo(pwd);
         List<User> result=usermapper.selectByExample(example);
         String openid = result.get(0).getOpenId();
-        if(openid==null){
+        if(openid==null||openid.equals("")){
             return false;
         }else{
             return true;
