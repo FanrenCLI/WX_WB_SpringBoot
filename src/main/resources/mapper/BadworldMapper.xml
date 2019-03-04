@@ -16,13 +16,6 @@
   <select id="badworld_list_string" resultType="String">
     select * from badworld_list
   </select>
-  <!--
-      //敏感词数量
-    int badworld_number();
-  -->
-  <select id="badworld_number" resultType="Integer">
-    select count(BadWorld) from badworld_list
-  </select>
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated
