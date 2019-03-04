@@ -46,17 +46,5 @@ public class StudentService_H {
     }
 
 
-    /** 刘浩你的方法写在上面 下面的方法我写！！！！！！！！！！！！！！！！！！！！！！
-    * @Author: FanrenCLI
-    * @Date: 19:43 2019/2/28
-    * @param: null
-    * @Description: Method
-    */
-    public Student selectStudentById(String id){
-        StudentExample studentExample=new StudentExample();
-        StudentExample.Criteria criteria=studentExample.createCriteria();
-        criteria.andStudentIdEqualTo(id);
-        Student result=studentMapper.selectByExample(studentExample).get(0);
-        return result;
-    }
+    
 }

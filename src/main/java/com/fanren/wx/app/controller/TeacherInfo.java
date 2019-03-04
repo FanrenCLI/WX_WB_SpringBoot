@@ -1,15 +1,12 @@
 package com.fanren.wx.app.controller;
 
 import com.fanren.wx.app.pojo.Teacher;
-import com.fanren.wx.backstage.service.TeacherService;
-import com.fanren.wx.backstage.util.SpeechUtil;
+import com.fanren.wx.app.serivce.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.bind.ValidationEvent;
 import java.util.List;
 
 /**

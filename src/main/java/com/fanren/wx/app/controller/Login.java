@@ -5,15 +5,14 @@ import com.fanren.wx.app.pojo.LoginBackEntity;
 import com.fanren.wx.app.pojo.Student;
 import com.fanren.wx.app.pojo.User;
 import com.fanren.wx.app.serivce.LJUserService;
+import com.fanren.wx.app.serivce.StudentService;
 import com.fanren.wx.app.util.HttpClientUtil;
-import com.fanren.wx.backstage.service.StudentService_H;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.PrinterAbortException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ public class Login {
     @Autowired
     private LJUserService LJUserService;
     @Autowired
-    private StudentService_H studentService;
+    private StudentService studentService;
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public LoginBackEntity checkLoginInfo(@RequestParam(value = "id",required = false) String id,
