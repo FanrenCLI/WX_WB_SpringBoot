@@ -14,11 +14,11 @@ public class CurriculumService_H {
     CurriculumMapper curriculumMapper;
 
     public List<Curriculum> curriculum_list(){
-        return curriculumMapper.curriculum_list();
+return null;
     }
 
     public int curriculum_number(){
-        return curriculumMapper.curriculum_number();
+return 0;
     }
 
     public Curriculum GetCurriculum(String name){
@@ -34,7 +34,7 @@ public class CurriculumService_H {
     }
 
     public void curriculum_update(Curriculum curriculum){
-        curriculumMapper.curriculum_update(curriculum);
+
     }
 
     public void curriculum_delete(String name){

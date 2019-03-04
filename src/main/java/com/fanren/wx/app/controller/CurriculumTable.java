@@ -2,7 +2,7 @@ package com.fanren.wx.app.controller;
 
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.app.pojo.CurriculumBackEntity;
-import com.fanren.wx.backstage.service.CurriculumService;
+import com.fanren.wx.backstage.service.CurriculumService_H;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +25,7 @@ import java.util.List;
 public class CurriculumTable {
 
     @Autowired
-    CurriculumService curriculumService;
+    CurriculumService_H curriculumService;
 
     @GetMapping(value = "/curr")
     public List<CurriculumBackEntity> getCurriculumInfo(@RequestParam(value = "classes") String classes,

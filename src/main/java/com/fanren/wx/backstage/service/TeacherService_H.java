@@ -27,8 +27,7 @@ public class TeacherService_H {
     }
 
     public void teacher_delete(String id){
-        teacherMapper.deleteByPrimaryKey(id);
-    }
+            }
 
     public long teacher_number(){
         TeacherExample teacherExample = new TeacherExample();
