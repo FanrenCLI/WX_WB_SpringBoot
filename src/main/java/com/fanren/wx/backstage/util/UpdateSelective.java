@@ -13,14 +13,21 @@ import java.util.Map;
  * @version:
  */
 public class UpdateSelective {
-    public static Map<String,String> selectiveFun(Object object) throws Exception{
+    public static Object selectiveFun(Object object) throws Exception{
         Class c1=object.getClass();
         Map<String,String> map=new HashMap<>();
         Field[] fields=c1.getDeclaredFields();
         for(Field field:fields) {
-            map.put(field.getName(), (String) getFieldValue(object, field.getName()));
+            String b=(String) getFieldValue(object,field.getName());
+            field.setAccessible(true);
+            if("".equals(b)||"null".equals(b)){
+                field.set(object,null);
+            }else {
+                field.set(object,b);
+            }
+
         }
-          return map;
+        return object;
     }
     public static Field getDeclaredField1(Object obj,String fieldName) {
         Field field = null;
@@ -39,7 +46,6 @@ public class UpdateSelective {
         Field field = getDeclaredField1(object,fieldName);
         return field.get(object);
     }
-
 //测试方法
     public static void main(String args[]) throws Exception{
         Student student=new Student();
@@ -47,11 +53,11 @@ public class UpdateSelective {
         student.setDepartment("sss");
         student.setIdCard("ssaaa");
         student.setStudentId("");
-        Map<String,String> map=selectiveFun(student);
-        for(String key : map.keySet()){
-            String v1 = map.get(key);
-            System.out.println(key+": "+v1+";");
-        }
+        Student stu_2=(Student) selectiveFun(student);
+        System.out.println(stu_2.getClasses());
+        System.out.println(stu_2.getName());
+        System.out.println(stu_2.getStudentId());
 
     }
+
 }
