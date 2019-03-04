@@ -29,7 +29,7 @@ public class BadworldController_H {
 
     @RequestMapping("/bin/badworld_number")
     @ResponseBody
-    public int badworld_number(){
+    public long badworld_number(){
         return badworldService_H.badworld_number();
     }
 

@@ -15,8 +15,10 @@ public class BadworldService_H {
     @Autowired
     BadworldMapper badworldMapper;
 
-    public int badworld_number(){
-        return badworldMapper.badworld_number();
+    public long badworld_number(){
+        BadworldExample badworldExample = new BadworldExample();
+        BadworldExample.Criteria criteria = badworldExample.createCriteria();
+        return badworldMapper.countByExample(badworldExample);
     }
 
     public Badworld GetBadworld(String id){
@@ -47,7 +49,6 @@ public class BadworldService_H {
     }
 
     public Set<String> badworld_list_string(){
-
         return badworldMapper.badworld_list_string();
     }
 }
