@@ -14,46 +14,6 @@
     <result column="picture" jdbcType="VARCHAR" property="picture"/>
     <result column="picture_dir" jdbcType="VARCHAR" property="picture_dir"/>
   </resultMap>
-  <!--
-      //根据管理员编号修改管理员信息
-    void user_update(User user);
-  -->
-  <update id="user_update" parameterType="com.fanren.wx.app.pojo.User">
-    update user_list_backstage
-    <set>
-      <if test="pwd != '' and pwd != null">
-        pwd = #{pwd,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != '' and openId != null">
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="role != '' and role != null">
-        role = #{role,jdbcType=VARCHAR},
-      </if>
-      <if test="picture != '' and picture != null">
-        picture = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="picture_dir != '' and picture != null">
-        picture_dir = #{picture_dir,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where user_id=#{userId,jdbcType=VARCHAR}
-  </update>
-  <!--
-    获取管理员数量
-    int queryUserCount();
-  -->
-  <select id="queryUserCount" resultType="Integer">
-    select count(role) from user_list_backstage where role='admin'
-  </select>
-  <!--
-    获取管理员列表
-    List<User> user_list();
-  -->
-  <select id="user_list" resultMap="BaseResultMap">
-    select user_id,pwd,open_id,role,picture from user_list_backstage where role='admin'
-  </select>
-
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated
@@ -310,11 +270,4 @@
       role = #{role,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-  <!--
-      List&amp;lt;User&amp;gt; selectAllUser();
-      查找所有管理员
-      -->
-  <select id="selectAllUser" resultMap="BaseResultMap">
-    select user_id,pwd,open_id,role from user_list_backstage where role='admin'
-  </select>
 </mapper>

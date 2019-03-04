@@ -36,7 +36,7 @@ public class UserController_H {
 
     @RequestMapping("/bin/user_number")
     @ResponseBody
-    public int queryUserCount(){
+    public long queryUserCount(){
         return userService_H.queryUserCount();
     }
 

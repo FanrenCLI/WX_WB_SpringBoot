@@ -29,11 +29,13 @@ public class UserService_H {
         return flag;
     }
     public List<User> get_user_list(){
-        List<User> users = userMapper.user_list();
-        return users;
+        UserExample example=new UserExample();
+        return userMapper.selectByExample(example);
     }
-    public int queryUserCount(){
-        return userMapper.queryUserCount();
+    public long queryUserCount(){
+
+        UserExample example=new UserExample();
+        return userMapper.countByExample(example);
     }
 
     public User GetUser(String id){
@@ -57,18 +59,10 @@ public class UserService_H {
     }
 
     public void user_update(MultipartFile file,User user){
-        User user1 = GetUser(user.getUserId());
-        File oldfile = new File(user1.getPicture_dir());
-        oldfile.delete();
-        List<String> liststr = FileUtil.fileupload(file);
-        // 接着创建对应的实体类，将以下路径进行添加，然后通过数据库操作方法写入
-        user.setPicture("http://localhost:8080/"+liststr.get(1));
-        user.setPicture_dir(liststr.get(0).substring(1)+liststr.get(1));
-        userMapper.user_update(user);
+
     }
 
     public void user_update(User user){
-        userMapper.user_update(user);
     }
 
 }
