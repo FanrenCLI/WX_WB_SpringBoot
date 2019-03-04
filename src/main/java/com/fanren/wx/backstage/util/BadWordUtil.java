@@ -1,6 +1,6 @@
 package com.fanren.wx.backstage.util;
 
-import com.fanren.wx.backstage.service.BadworldService;
+import com.fanren.wx.backstage.service.BadworldService_H;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.*;
 @Component
 public class BadWordUtil {
     @Autowired
-    protected BadworldService badworldService;
+    protected BadworldService_H badworldService;
     public static BadWordUtil badWordUtil;
     @PostConstruct
     public void init(){

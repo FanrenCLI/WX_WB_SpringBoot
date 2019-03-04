@@ -15,19 +15,19 @@
     <script type="text/javascript" src="../js/xadmin.js"></script>
     <script type="text/javascript">
     	$(function(){
-          //通过教师编号查询信息
+          //通过考试科目查询信息
           $("#GetBtn").click(function () {
-            var id = $(".layui-input").val();
-            if(id==""){
-            	layer.msg('请输入教师编号！');
+            var name = $(".layui-input").val();
+            if(name==""){
+            	layer.msg('请输入考试科目！');
             	return;
             }
             layer.msg('正在查询请稍等...')
             $.ajax({
-              url:"GetTeacher",
+              url:"GetExam",
               type:"GET",
               async:true,
-              data:{"id":id},
+              data:{"name":name},
               dataType:"json",
               success:function (data) {
                 //alert(JSON.stringify(data));
@@ -36,13 +36,13 @@
                 $(".x-right").text("共有数据："+1+" 条");
               },
               error:function () {
-                layer.msg('请输入正确的教师编号！');
+                layer.msg('请输入正确的考试科目！');
               }
             });
           });
-          //发送请求获取教师数量
+          //发送请求获取考试科目信息
           $.ajax({
-            url:"teacher_number",
+            url:"exam_number",
             type:"GET",
             async:true,
             dataType:"text",
@@ -50,9 +50,9 @@
               $(".x-right").text("共有数据："+data+" 条")
             }
           });
-          //发送请求获取教师信息列表
+          //发送请求获取考试信息列表
           $.ajax({
-            url:"teacher_list",
+            url:"exam_list",
             type:"GET",
             async:true,
             dataType:"json",
@@ -75,13 +75,13 @@
         /*教师-删除*/
         function member_del(obj){
           var p = $(obj).parents("tr").children("#index");
-          var id = p.text();
+          var name = p.text();
           layer.confirm('确认要删除吗？',function(index){
             $.ajax({
-              url:"teacher_delete",
+              url:"exam_delete",
               type:"POST",
               async:true,
-              data:{"id":id},
+              data:{"name":name},
               dataType:"text",
               success:function () {
                 layer.msg('已删除!',{icon:1,time:1000});
@@ -90,40 +90,30 @@
           });
         }
 
-        //展示单个教师
+        //展示单个考试科目
         function showClass(data) {
           $("tbody").empty();
             var cboxTd = $("<td></td>").html("<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\"><i class=\"layui-icon\">&#xe605;</i></div>");
-            var teacherIdTd = $("<td id='index'></td>").append(data.teacherId);
-          	var nameTd = $("<td></td>").append(data.name);
-          	var sexTd = $("<td></td>").append(data.sex);
-          	var idCardTd = $("<td></td>").append(data.idCard);
-          	var phoneTd = $("<td></td>").append(data.phone);
-          	var eMailTd = $("<td></td>").append(data.email);
-          	var qqTd = $("<td></td>").append(data.qq);
-          	var degreeTd = $("<td></td>").append(data.degree);
-          	var departmentTd = $("<td></td>").append(data.department);
-          	var teachCurriculumTd = $("<td></td>").append(data.teachCurriculum);
-            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑教师信息','teacher-edit.html',450,500)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
-          	$("<tr></tr>").append(cboxTd).append(teacherIdTd).append(nameTd).append(sexTd).append(idCardTd).append(degreeTd).append(departmentTd).append(teachCurriculumTd).append(phoneTd).append(eMailTd).append(qqTd).append(operateTd).appendTo("tbody");
+            var nameTd = $("<td id='index'></td>").append(data.name);
+          	var timeTd = $("<td></td>").append(data.time);
+          	var placeTd = $("<td></td>").append(data.place);
+          	var teacherTd = $("<td></td>").append(data.teacher);
+          	var classesTd = $("<td></td>").append(data.classes);
+            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑考试信息','exam-edit.html',450,400)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
+          	$("<tr></tr>").append(cboxTd).append(nameTd).append(timeTd).append(placeTd).append(teacherTd).append(classesTd).append(operateTd).appendTo("tbody");
         }
-        //展示教师信息列表
+        //展示考试科目信息列表
         function showTable(data){
           $("tbody").empty();
           $.each(data,function (index,item) {
-            var cboxTd = $("<td></td>").html("<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\"><i class=\"layui-icon\">&#xe605;</i></div>");
-            var teacherIdTd = $("<td id='index'></td>").append(item.teacherId);
-          	var nameTd = $("<td></td>").append(item.name);
-          	var sexTd = $("<td></td>").append(item.sex);
-          	var idCardTd = $("<td></td>").append(item.idCard);
-          	var phoneTd = $("<td></td>").append(item.phone);
-          	var eMailTd = $("<td></td>").append(item.email);
-          	var qqTd = $("<td></td>").append(item.qq);
-          	var degreeTd = $("<td></td>").append(item.degree);
-          	var departmentTd = $("<td></td>").append(item.department);
-          	var teachCurriculumTd = $("<td></td>").append(item.teachCurriculum);
-            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑教师信息','teacher-edit.html',450,500)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
-          	$("<tr></tr>").append(cboxTd).append(teacherIdTd).append(nameTd).append(sexTd).append(idCardTd).append(degreeTd).append(departmentTd).append(teachCurriculumTd).append(phoneTd).append(eMailTd).append(qqTd).append(operateTd).appendTo("tbody");
+          	var cboxTd = $("<td></td>").html("<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\"><i class=\"layui-icon\">&#xe605;</i></div>");
+            var nameTd = $("<td id='index'></td>").append(item.name);
+          	var timeTd = $("<td></td>").append(item.time);
+          	var placeTd = $("<td></td>").append(item.place);
+          	var teacherTd = $("<td></td>").append(item.teacher);
+          	var classesTd = $("<td></td>").append(item.classes);
+            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑考试信息','exam-edit.html',450,400)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
+          	$("<tr></tr>").append(cboxTd).append(nameTd).append(timeTd).append(placeTd).append(teacherTd).append(classesTd).append(operateTd).appendTo("tbody");
           });
         };
     </script>
@@ -132,7 +122,7 @@
   <body class="layui-anim layui-anim-upbit">
     <div class="x-nav">
       <span class="layui-breadcrumb">
-        <a><cite>教师信息管理</cite></a>
+        <a><cite>考试信息管理</cite></a>
       </span>
       <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
@@ -140,14 +130,14 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so" onsubmit="return false">
-        	<font size="4">请输入教师编号：</font>
+        	<font size="4">请输入考试科目：</font>
           <input type="text" name="student_ID" autocomplete="off" class="layui-input">
           <input class="layui-btn" type="button" id="GetBtn" value="查询">
         </form>
       </div>
       <xblock>
       	<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加教师','teacher-add.html',450,500)"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加考试信息','exam-add.html',450,400)"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px"></span>
       </xblock>
       <table class="layui-table">
@@ -156,16 +146,11 @@
             <th>
               <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
-            <th>教师编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>身份证号</th>
-            <th>学位</th>
-            <th>所属院系</th>
-            <th>教授科目</th>
-            <th>电话</th>
-            <th>邮箱</th>
-            <th>QQ</th>
+            <th>考试科目</th>
+            <th>开始时间</th>
+            <th>考试地点</th>
+            <th>监考教师</th>
+            <th>考试班级</th>
             <th>操作</th>
           </tr>
         </thead>

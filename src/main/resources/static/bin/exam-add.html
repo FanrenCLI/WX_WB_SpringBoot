@@ -19,17 +19,17 @@
           var form = layui.form;
           var layer = layui.layer;
           //监听提交
-          form.on('submit(update)', function(data){
+          form.on('submit(add)', function(data){
               console.log(data);
-              //发异步请求
+              //发异步，把数据提交给php
               $.ajax({
-                  url:"curriculum_update",
+                  url:"exam_insert",
                   type:"POST",
                   async:true,
                   dataType:"text",
                   data:data.field,
                   success:function () {
-                      layer.alert("修改成功", {icon: 6},function () {
+                      layer.alert("增加成功", {icon: 6},function () {
                           // 获得frame索引
                           var index = parent.layer.getFrameIndex(window.name);
                           //关闭当前frame
@@ -47,81 +47,55 @@
     <div class="x-body">
         <form class="layui-form" >
           <div class="layui-form-item">
-              <label for="kcmc" class="layui-form-label">
-                  <span class="x-red">*</span>课程名称
+              <label for="name" class="layui-form-label">
+                  <span class="x-red">*</span>考试科目
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="kcmc" name="kcmc" required="" lay-verify="required"
+                  <input type="text" id="name" name="name" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="kcdd" class="layui-form-label">
-                  <span class="x-red"></span>课程地点
+              <label for="time" class="layui-form-label">
+                  <span class="x-red">*</span>考试时间
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="kcdd" name="kcdd" required=""
+                  <input type="text" id="time" name="time" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="teachers" class="layui-form-label">
-                  <span class="x-red"></span>授课教师
+              <label for="place" class="layui-form-label">
+                  <span class="x-red">*</span>考试地点
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="teachers" name="teachers"
+                  <input type="text" id="place" name="place" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="skbj" class="layui-form-label">
-                  <span class="x-red"></span>上课班级
+            </div>
+            <div class="layui-form-item">
+              <label for="teacher" class="layui-form-label">
+                  <span class="x-red">*</span>监考教师
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="skbj" name="skbj"
+                  <input type="text" id="teacher" name="teacher" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
-          <div class="layui-form-item">
-						<label for="weekTime" class="layui-form-label">
-              <span class="x-red"></span>星期
-            </label>
-						<div class="layui-input-inline">
-							<select id="weekTime" name="weekTime">
-								<option value=""></option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-							</select>
-						</div>
-					</div>
-          <div class="layui-form-item">
-              <label for="dayTime" class="layui-form-label">
-                  <span class="x-red"></span>节次
+            </div>
+            <div class="layui-form-item">
+              <label for="classes" class="layui-form-label">
+                  <span class="x-red">*</span>考试班级
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="dayTime" name="dayTime" 
+                  <input type="text" id="classes" name="classes" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="zhouci" class="layui-form-label">
-                  <span class="x-red"></span>周数
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="zhouci" name="zhouci" 
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
+            </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
-              <button style="padding: 0px 80px;" class="layui-btn" lay-filter="update" lay-submit="">
-                  		修改
+              <button style="padding: 0px 80px;" class="layui-btn" lay-filter="add" lay-submit="">
+                  		增加
               </button>
           </div>
       </form>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClassService {
+public class ClassService_H {
     @Autowired
     ClassMapper classMapper;
 

@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentService {
+public class StudentService_H {
     @Autowired
     StudentMapper studentMapper;
 
     public List<Student> student_list(){
-        return studentMapper.student_list();
+        StudentExample studentExample = new StudentExample();
+        StudentExample.Criteria criteria = studentExample.createCriteria();
+        return studentMapper.selectByExample(studentExample);
     }
-    public int student_number(){
-        return studentMapper.student_number();
+    public long student_number(){
+        StudentExample studentExample = new StudentExample();
+        StudentExample.Criteria criteria = studentExample.createCriteria();
+        return studentMapper.countByExample(studentExample);
     }
     public Student GetStudent(String id){
         StudentExample studentExample = new StudentExample();
@@ -39,7 +43,10 @@ public class StudentService {
     }
 
     public void updateStudent(Student student){
-        studentMapper.updateStudent(student);
+        StudentExample studentExample = new StudentExample();
+        StudentExample.Criteria criteria = studentExample.createCriteria();
+        criteria.andStudentIdEqualTo(student.getStudentId());
+        studentMapper.updateByExampleSelective(student,studentExample);
     }
 
 }

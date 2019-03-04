@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ResourceService {
+public class ResourceService_H {
     @Autowired
     ResourceMapper resourceMapper;
 

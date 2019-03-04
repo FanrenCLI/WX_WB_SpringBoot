@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService_H {
     @Autowired
     UserMapper userMapper;
     public boolean CheckUser(User user){

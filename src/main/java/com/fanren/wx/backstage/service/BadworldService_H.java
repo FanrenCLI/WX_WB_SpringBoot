@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class BadworldService {
+public class BadworldService_H {
     @Autowired
     BadworldMapper badworldMapper;
 
