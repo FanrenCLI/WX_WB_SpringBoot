@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class AttendController {
+public class AttendController_H {
     @Autowired
     AttendService_H attendService_H;
 

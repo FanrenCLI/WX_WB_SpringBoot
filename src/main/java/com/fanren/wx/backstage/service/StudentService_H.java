@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.StudentMapper;
 import com.fanren.wx.app.pojo.Student;
 import com.fanren.wx.app.pojo.StudentExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +43,12 @@ public class StudentService_H {
         studentMapper.deleteByExample(studentExample);
     }
 
-    public void updateStudent(Student student){
+    public void updateStudent(Student student) throws Exception {
+        Student stu = (Student) UpdateSelective.selectiveFun(student);
+        StudentExample studentExample = new StudentExample();
+        StudentExample.Criteria criteria = studentExample.createCriteria();
+        criteria.andStudentIdEqualTo(student.getStudentId());
+        studentMapper.updateByExampleSelective(stu,studentExample);
     }
 
 

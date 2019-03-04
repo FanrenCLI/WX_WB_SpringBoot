@@ -53,6 +53,7 @@ public class UpdateSelective {
         student.setStudentId("");
         Student stu_2=(Student) selectiveFun(student);
         System.out.println(stu_2.getClasses());
+        System.out.println(stu_2.getDepartment());
         System.out.println(stu_2.getName());
         System.out.println(stu_2.getStudentId());
 
