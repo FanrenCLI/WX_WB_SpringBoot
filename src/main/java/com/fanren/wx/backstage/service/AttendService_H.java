@@ -9,16 +9,20 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AttendService {
+public class AttendService_H {
     @Autowired
     AttendMapper attendMapper;
 
     public List<Attend> attend_list(){
-        return attendMapper.attend_list();
+        AttendExample attendExample = new AttendExample();
+        AttendExample.Criteria criteria = attendExample.createCriteria();
+        return attendMapper.selectByExample(attendExample);
     }
 
-    public int attend_number(){
-        return attendMapper.attend_number();
+    public long attend_number(){
+        AttendExample attendExample = new AttendExample();
+        AttendExample.Criteria criteria = attendExample.createCriteria();
+        return attendMapper.countByExample(attendExample);
     }
 
     public void attend_insert(Attend attend){

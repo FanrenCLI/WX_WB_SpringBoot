@@ -18,57 +18,6 @@
     <result column="qq" jdbcType="VARCHAR" property="qq" />
     <result column="wx" jdbcType="VARCHAR" property="wx" />
   </resultMap>
-  <!--
-  //通过学号更新
-void updateStudent();
--->
-  <update id="updateStudent" parameterType="com.fanren.wx.app.pojo.Student">
-    update student_list
-    <set>
-      <if test="name != '' and name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != '' and sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != '' and idCard != null">
-        ID_Card = #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != '' and phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="department != '' and department != null">
-        department = #{department,jdbcType=VARCHAR},
-      </if>
-      <if test="major != '' and major != null">
-        major = #{major,jdbcType=VARCHAR},
-      </if>
-      <if test="classes != '' and classes != null">
-        classes = #{classes,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != '' and qq != null">
-        qq = #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="wx != '' and wx != null">
-        wx = #{wx,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where student_ID=#{studentId,jdbcType=VARCHAR}
-  </update>
-  <!--
-    查询所有学生数量
-    int student_number();
-  -->
-  <select id="student_number" resultType="Integer">
-    select count(student_ID) from student_list
-  </select>
-  <!--
-        //查询所有学生信息
-    List&amp;amp;amp;amp;lt;Student&amp;amp;amp;amp;gt; student_list();
-  -->
-  <select id="student_list" resultMap="BaseResultMap">
-    select student_ID,name,sex,ID_Card,phone,department,major,classes,qq,wx from student_list
-  </select>
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated

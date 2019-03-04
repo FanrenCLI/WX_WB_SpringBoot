@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CollegeService {
+public class CollegeService_H {
     @Autowired
     CollegeMapper collegeMapper;
     public List<College> college_list(){

@@ -51,7 +51,7 @@
                   <span class="x-red">*</span>教师编号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="teacherId" name="teacherId" required="" lay-verify="required"
+                  <input type="text" id="teacherId" name="teacherId" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -60,27 +60,85 @@
                   <span class="x-red">*</span>姓名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="name" name="name" required="" lay-verify="required"
+                  <input type="text" id="name" name="name" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="sex" class="layui-form-label">
+							<label for="sex" class="layui-form-label">
                   <span class="x-red">*</span>性别
               </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="sex" name="sex" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
+							<div class="layui-input-inline">
+								<select id="sex" name="sex" lay-verify="required">
+									<option value=""></option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</div>
+					</div>
           <div class="layui-form-item">
               <label for="idCard" class="layui-form-label">
                   <span class="x-red">*</span>身份证号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="idCard" name="idCard" required="" lay-verify="required"
+                  <input type="text" id="idCard" name="idCard" lay-verify="required"
                   autocomplete="off" class="layui-input">
               </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="degree" class="layui-form-label">
+                  <span class="x-red">*</span>学位
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="degree" name="degree" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="department" class="layui-form-label">
+                  <span class="x-red">*</span>所属院系
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="department" name="department" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="teachCurriculum" class="layui-form-label">
+                  <span class="x-red">*</span>教授科目
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="teachCurriculum" name="teachCurriculum" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">
+                  <span class="x-red"></span>电话
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="phone" name="phone"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="email" class="layui-form-label">
+                  <span class="x-red"></span>邮箱
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="email" name="email"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-form-item">
+              <label for="qq" class="layui-form-label">
+                  <span class="x-red"></span>QQ
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="qq" name="qq"
+                  autocomplete="off" class="layui-input">
+              </div>
+            </div>
           <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>

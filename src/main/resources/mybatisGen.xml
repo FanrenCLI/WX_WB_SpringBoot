@@ -42,6 +42,10 @@
         <!--<table tableName="resource_list" domainObjectName="Resource" ></table>-->
         <!--<table tableName="badworld_list" domainObjectName="Badworld" ></table>-->
         <!--<table tableName="attend_list" domainObjectName="Attend" />-->
+
+        <!--<table tableName="exam_list" domainObjectName="Exam" />-->
+        <!--<table tableName="kqclass_list" domainObjectName="Kqclass" />-->
+        <!--<table tableName="inform_list" domainObjectName="Inform" />-->
     </context>
 
 </generatorConfiguration>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MajorService {
+public class MajorService_H {
     @Autowired
     MajorMapper majorMapper;
 

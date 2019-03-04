@@ -46,6 +46,16 @@ var navs = [
 	"href":"bin/attend.html",
 	"spread":false,
 },{
+	"title":"考试信息",
+	"icon":"&#xe6b2;",
+	"href":"bin/exam.html",
+	"spread":false,
+},{
+	"title":"通知信息",
+	"icon":"&#xe667;",
+	"href":"bin/inform.html",
+	"spread":false,
+},{
 	"title":"教学资源",
 	"icon":"&#xe6ed;",
 	"href":"bin/resource.html",

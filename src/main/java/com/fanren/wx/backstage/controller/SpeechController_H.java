@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-public class SpeechController {
+public class SpeechController_H {
 
     @RequestMapping("/bin/TextToMp3")
     @ResponseBody

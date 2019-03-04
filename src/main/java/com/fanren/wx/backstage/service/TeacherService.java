@@ -37,7 +37,6 @@ public class TeacherService {
     }
 
     public List<Teacher> getTeacherInfo(String department,String curriculum,String name){
-
         TeacherExample teacherExample=new TeacherExample();
         TeacherExample.Criteria criteria=teacherExample.createCriteria();
         if(department!=null){
