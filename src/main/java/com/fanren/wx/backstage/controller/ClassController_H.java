@@ -22,7 +22,7 @@ public class ClassController_H {
 
     @RequestMapping("/bin/class_number")
     @ResponseBody
-    public int class_number(){
+    public long class_number(){
         return classService_H.class_number();
     }
 
@@ -46,7 +46,7 @@ public class ClassController_H {
 
     @RequestMapping("/bin/class_update")
     @ResponseBody
-    public void class_update(Class c){
+    public void class_update(Class c) throws Exception {
         classService_H.class_update(c);
     }
 }

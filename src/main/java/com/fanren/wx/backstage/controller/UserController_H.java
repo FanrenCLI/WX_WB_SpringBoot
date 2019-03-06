@@ -60,7 +60,7 @@ public class UserController_H {
 
     @RequestMapping("/bin/user_update")
     @ResponseBody
-    public void user_update(@RequestParam(value = "file",required = false)MultipartFile file,User user){
+    public void user_update(@RequestParam(value = "file",required = false)MultipartFile file,User user) throws Exception {
         if (!file.isEmpty()){
             userService_H.user_update(file,user);
         }else {

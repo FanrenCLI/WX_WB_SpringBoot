@@ -96,7 +96,7 @@
           var cboxTd = $("<td></td>").html("<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\"><i class=\"layui-icon\">&#xe605;</i></div>");
           var collegeIDTd = $("<td id='index'></td>").append(data.collegeId);
           var nameTd = $("<td></td>").append(data.name);
-          var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑院系信息','student-edit.html',450,250)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
+          var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑院系信息','college-edit.html',450,250)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
           $("<tr></tr>").append(cboxTd).append(collegeIDTd).append(nameTd).append(operateTd).appendTo("tbody");
         }
         //展示院系信息列表
@@ -106,7 +106,7 @@
             var cboxTd = $("<td></td>").html("<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\"><i class=\"layui-icon\">&#xe605;</i></div>");
             var collegeIDTd = $("<td id='index'></td>").append(item.collegeId);
             var nameTd = $("<td></td>").append(item.name);
-            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑院系信息','student-edit.html',450,250)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
+            var operateTd = $("<td></td>").addClass().append("<button class=\"layui-btn layui-btn layui-btn-xs\"  onclick=\"x_admin_show('编辑院系信息','college-edit.html',450,250)\" ><i class=\"layui-icon\">&#xe642;</i>编辑</button>\n" + "<button class=\"layui-btn-danger layui-btn layui-btn-xs\"  onclick=\"member_del(this)\" href=\"javascript:;\" ><i class=\"layui-icon\">&#xe640;</i>删除</button>");
             $("<tr></tr>").append(cboxTd).append(collegeIDTd).append(nameTd).append(operateTd).appendTo("tbody");
           });
         };

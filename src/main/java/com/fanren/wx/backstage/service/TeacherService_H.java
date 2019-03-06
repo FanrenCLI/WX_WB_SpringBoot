@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.TeacherMapper;
 import com.fanren.wx.app.pojo.Teacher;
 import com.fanren.wx.app.pojo.TeacherExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,10 +44,11 @@ public class TeacherService_H {
         teacherMapper.insert(teacher);
     }
 
-    public void teacher_update(Teacher teacher){
+    public void teacher_update(Teacher teacher) throws Exception {
         TeacherExample teacherExample = new TeacherExample();
         TeacherExample.Criteria criteria = teacherExample.createCriteria();
         criteria.andTeacherIdEqualTo(teacher.getTeacherId());
-        teacherMapper.updateByExampleSelective(teacher,teacherExample);
+        Teacher t = (Teacher) UpdateSelective.selectiveFun(teacher);
+        teacherMapper.updateByExampleSelective(t,teacherExample);
     }
 }

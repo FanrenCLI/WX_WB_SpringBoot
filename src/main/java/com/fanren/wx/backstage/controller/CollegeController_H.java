@@ -22,7 +22,7 @@ public class CollegeController_H {
 
     @RequestMapping("/bin/college_number")
     @ResponseBody
-    public int college_number(){
+    public long college_number(){
         return collegeService_H.college_number();
     }
 
@@ -46,7 +46,7 @@ public class CollegeController_H {
 
     @RequestMapping("/bin/updateCollege")
     @ResponseBody
-    public void updateCollege(College college){
+    public void updateCollege(College college) throws Exception {
         collegeService_H.updateCollege(college);
     }
 }

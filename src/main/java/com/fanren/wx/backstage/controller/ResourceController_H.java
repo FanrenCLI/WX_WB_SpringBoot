@@ -32,7 +32,7 @@ public class ResourceController_H {
 
     @RequestMapping("/bin/resource_number")
     @ResponseBody
-    public int resource_number(){
+    public long resource_number(){
         return resourceService_H.resource_number();
     }
 

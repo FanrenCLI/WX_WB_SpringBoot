@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.AttendMapper;
 import com.fanren.wx.app.pojo.Attend;
 import com.fanren.wx.app.pojo.AttendExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +45,12 @@ public class AttendService_H {
         attendMapper.deleteByExample(attendExample);
     }
 
-    public void attend_update(Attend attend){
-        attendMapper.attend_update(attend);
+    public void attend_update(Attend attend) throws Exception {
+        AttendExample attendExample = new AttendExample();
+        AttendExample.Criteria criteria = attendExample.createCriteria();
+        criteria.andStudentIdEqualTo(attend.getStudentId());
+        Attend o = (Attend)UpdateSelective.selectiveFun(attend);
+        attendMapper.updateByExampleSelective(o,attendExample);
     }
 
 }

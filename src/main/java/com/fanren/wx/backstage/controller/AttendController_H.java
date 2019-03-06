@@ -46,7 +46,7 @@ public class AttendController_H {
 
     @RequestMapping("/bin/attend_update")
     @ResponseBody
-    public void attend_update(Attend attend){
+    public void attend_update(Attend attend) throws Exception {
         attendService_H.attend_update(attend);
     }
 }

@@ -4,6 +4,7 @@ import com.fanren.wx.app.dao.ResourceMapper;
 import com.fanren.wx.app.pojo.Resource;
 import com.fanren.wx.app.pojo.ResourceExample;
 import com.fanren.wx.backstage.util.FileUtil;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,7 +21,8 @@ public class ResourceService_H {
     ResourceMapper resourceMapper;
 
     public List<Resource> resource_list() {
-        return resourceMapper.resource_list();
+        ResourceExample resourceExample = new ResourceExample();
+        return resourceMapper.selectByExample(resourceExample);
     }
 
     public void resource_upload(MultipartFile file, Resource resource) {
@@ -35,12 +37,16 @@ public class ResourceService_H {
         resourceMapper.insertSelective(resource);
     }
 
-    public int resource_number() {
-        return resourceMapper.resource_number();
+    public long resource_number() {
+        ResourceExample resourceExample = new ResourceExample();
+        return resourceMapper.countByExample(resourceExample);
     }
 
     public Resource GetResource(String name) {
-        return resourceMapper.GetResource(name);
+        ResourceExample resourceExample = new ResourceExample();
+        ResourceExample.Criteria criteria = resourceExample.createCriteria();
+        criteria.andResourceNameEqualTo(name);
+        return resourceMapper.selectByExample(resourceExample).get(0);
     }
 
     public void resource_delete(String name) {
@@ -91,8 +97,14 @@ public class ResourceService_H {
                     //增加下载量
                     int download_number = Integer.parseInt(resource.getDownloadNumber());
                     download_number++;
+                    //设置下载量
                     resource.setDownloadNumber(String.valueOf(download_number));
-                    resourceMapper.resource_update_number(resource);
+                    //更新下载量
+                    ResourceExample resourceExample = new ResourceExample();
+                    ResourceExample.Criteria criteria = resourceExample.createCriteria();
+                    criteria.andResourceNameEqualTo(resource.getResourceName());
+                    Resource r = (Resource) UpdateSelective.selectiveFun(resource);
+                    resourceMapper.updateByExampleSelective(r,resourceExample);
                 }
                 catch (Exception e) {
                     System.out.println("失败!");

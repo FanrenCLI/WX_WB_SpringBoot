@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.CollegeMapper;
 import com.fanren.wx.app.pojo.College;
 import com.fanren.wx.app.pojo.CollegeExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,12 @@ public class CollegeService_H {
     @Autowired
     CollegeMapper collegeMapper;
     public List<College> college_list(){
-        return collegeMapper.college_list();
+        CollegeExample collegeExample = new CollegeExample();
+        return collegeMapper.selectByExample(collegeExample);
     }
-    public int college_number(){
-        return collegeMapper.college_number();
+    public long college_number(){
+        CollegeExample collegeExample = new CollegeExample();
+        return collegeMapper.countByExample(collegeExample);
     }
     public College GetCollege(String id){
         CollegeExample collegeExample = new CollegeExample();
@@ -32,7 +35,11 @@ public class CollegeService_H {
         collegeMapper.insert(college);
     }
 
-    public void updateCollege(College college){
-        collegeMapper.college_update(college);
+    public void updateCollege(College college) throws Exception {
+        CollegeExample collegeExample = new CollegeExample();
+        CollegeExample.Criteria criteria = collegeExample.createCriteria();
+        criteria.andCollegeIdEqualTo(college.getCollegeId());
+        College o = (College) UpdateSelective.selectiveFun(college);
+        collegeMapper.updateByExample(o,collegeExample);
     }
 }

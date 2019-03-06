@@ -19,7 +19,7 @@ public class BadWordUtil {
     public void init(){
         badWordUtil = this;
         badWordUtil.badworldService = this.badworldService;
-        BadWordUtil.words = badWordUtil.badworldService.badworld_list_string();
+        BadWordUtil.words = badWordUtil.badworldService.badworld_list();
         addBadWordToHashMap(BadWordUtil.words);
     }
 
@@ -28,11 +28,7 @@ public class BadWordUtil {
     public static Map<String,String> wordMap;
     public static int minMatchTYpe = 1;      //最小匹配规则
     public static int maxMatchType = 2;      //最大匹配规则
-//    static{
-//        BadWordUtil.words = readTxtByLine(filePath);
-//        BadWordUtil.words = badWordUtil.badworldService.badworld_list_string();
-//        addBadWordToHashMap(BadWordUtil.words);
-//    }
+
     public static Set<String> readTxtByLine(String path){
         Set<String> keyWordSet = new HashSet<String>();
         File file=new File(path);

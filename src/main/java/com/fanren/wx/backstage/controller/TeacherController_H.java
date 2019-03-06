@@ -46,7 +46,7 @@ public class TeacherController_H {
 
     @RequestMapping("/bin/teacher_update")
     @ResponseBody
-    public void teacher_update(Teacher teacher){
+    public void teacher_update(Teacher teacher) throws Exception {
         teacherService_H.teacher_update(teacher);
     }
 }

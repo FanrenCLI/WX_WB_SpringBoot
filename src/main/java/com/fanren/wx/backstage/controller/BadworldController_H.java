@@ -24,7 +24,7 @@ public class BadworldController_H {
     @RequestMapping("/bin/badworld_list")
     @ResponseBody
     public Set<String> badworld_list(){
-        return badworldService_H.badworld_list_string();
+        return badworldService_H.badworld_list();
     }
 
     @RequestMapping("/bin/badworld_number")

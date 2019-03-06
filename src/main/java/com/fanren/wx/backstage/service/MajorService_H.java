@@ -2,6 +2,8 @@ package com.fanren.wx.backstage.service;
 
 import com.fanren.wx.app.dao.MajorMapper;
 import com.fanren.wx.app.pojo.Major;
+import com.fanren.wx.app.pojo.MajorExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,13 @@ public class MajorService_H {
     MajorMapper majorMapper;
 
     public List<Major> major_list(){
-        return majorMapper.major_list();
+        MajorExample majorExample = new MajorExample();
+        return majorMapper.selectByExample(majorExample);
     }
 
-    public int major_number(){
-        return majorMapper.major_number();
+    public long major_number(){
+        MajorExample majorExample = new MajorExample();
+        return majorMapper.countByExample(majorExample);
     }
 
     public Major GetMajor(String id){
@@ -32,7 +36,11 @@ public class MajorService_H {
         majorMapper.insert(major);
     }
 
-    public void update_major(Major major){
-        majorMapper.update_major(major);
+    public void update_major(Major major) throws Exception {
+        MajorExample majorExample = new MajorExample();
+        MajorExample.Criteria criteria = majorExample.createCriteria();
+        criteria.andMajorIdEqualTo(major.getMajorId());
+        Major m = (Major)UpdateSelective.selectiveFun(major);
+        majorMapper.updateByExampleSelective(m,majorExample);
     }
 }

@@ -3,6 +3,7 @@ package com.fanren.wx.backstage.service;
 import com.fanren.wx.app.dao.ExamMapper;
 import com.fanren.wx.app.pojo.Exam;
 import com.fanren.wx.app.pojo.ExamExample;
+import com.fanren.wx.backstage.util.UpdateSelective;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,11 +36,12 @@ public class ExamService_H {
         return examMapper.countByExample(examExample);
     }
 
-    public void exam_update(Exam exam){
+    public void exam_update(Exam exam) throws Exception {
         ExamExample examExample = new ExamExample();
         ExamExample.Criteria criteria = examExample.createCriteria();
         criteria.andNameEqualTo(exam.getName());
-        examMapper.updateByExampleSelective(exam,examExample);
+        Exam e = (Exam) UpdateSelective.selectiveFun(exam);
+        examMapper.updateByExampleSelective(e,examExample);
     }
 
     public void exam_delete(String name){

@@ -40,7 +40,7 @@ public class ExamController_H {
 
     @RequestMapping("/bin/exam_update")
     @ResponseBody
-    public void exam_update(Exam exam){
+    public void exam_update(Exam exam) throws Exception {
         examService_H.exam_update(exam);
     }
 

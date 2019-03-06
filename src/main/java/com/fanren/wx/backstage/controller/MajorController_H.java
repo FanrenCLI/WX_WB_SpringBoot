@@ -22,7 +22,7 @@ public class MajorController_H {
 
     @RequestMapping("/bin/major_number")
     @ResponseBody
-    public int major_number(){
+    public long major_number(){
         return majorService_H.major_number();
     }
 
@@ -46,7 +46,7 @@ public class MajorController_H {
 
     @RequestMapping("/bin/updateMajor")
     @ResponseBody
-    public void updateMajor(Major major){
+    public void updateMajor(Major major) throws Exception {
         majorService_H.update_major(major);
     }
 }

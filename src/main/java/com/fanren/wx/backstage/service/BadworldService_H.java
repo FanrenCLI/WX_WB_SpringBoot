@@ -48,7 +48,7 @@ public class BadworldService_H {
         return BadWordUtil.replaceBadWord(data,1,"*");
     }
 
-    public Set<String> badworld_list_string(){
-        return badworldMapper.badworld_list_string();
+    public Set<String> badworld_list(){
+        return badworldMapper.badworld_list();
     }
 }
