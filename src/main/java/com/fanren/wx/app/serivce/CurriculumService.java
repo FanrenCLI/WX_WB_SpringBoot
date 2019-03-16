@@ -2,6 +2,7 @@ package com.fanren.wx.app.serivce;
 
 import com.fanren.wx.app.dao.CurriculumMapper;
 import com.fanren.wx.app.pojo.Curriculum;
+import com.fanren.wx.app.pojo.CurriculumExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,12 @@ public class CurriculumService {
      */
     public List<Curriculum> getCurrInfo(String classes){
         return curriculumMapper.selectCurriculumByClasses(classes);
+    }
+
+    public List<Curriculum> getRoomList(String  xqj){
+        CurriculumExample example=new CurriculumExample();
+        CurriculumExample.Criteria criteria=example.createCriteria();
+        criteria.andWeekTimeEqualTo(xqj);
+        return curriculumMapper.selectByExample(example);
     }
 }

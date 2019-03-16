@@ -286,4 +286,11 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+
+
+<!--自定义方法Bylujie-->
+  <select id="getTeacherInfoByNameOrCurr" resultMap="BaseResultMap">
+    select * from teacher_list where department=#{NameOrCurr} or name=#{NameOrCurr}
+  </select>
 </mapper>

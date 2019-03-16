@@ -6,12 +6,15 @@
 <generatorConfiguration>
 
     <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://39.105.26.229:3306/waibao"
                         userId="fanren"
                         password="StCwFAXrFFSMHPar">
         </jdbcConnection>
-
         <javaTypeResolver >
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
@@ -36,15 +39,17 @@
         <!--<table tableName="college_list" domainObjectName="College" ></table>-->
         <!--<table tableName="major_list" domainObjectName="Major" ></table>-->
         <!--<table tableName="class_list" domainObjectName="Class" ></table>-->
-        <table tableName="teacher_list" domainObjectName="Teacher" ></table>
+        <!--<table tableName="teacher_list" domainObjectName="Teacher" ></table>-->
         <!--<table tableName="curriculum_list" domainObjectName="Curriculum" ></table>-->
         <!--<table tableName="report_list" domainObjectName="Report" ></table>-->
         <!--<table tableName="resource_list" domainObjectName="Resource" ></table>-->
         <!--<table tableName="badworld_list" domainObjectName="Badworld" ></table>-->
         <!--<table tableName="attend_list" domainObjectName="Attend" />-->
-
+        <!--<table tableName="attend_templist" domainObjectName="Templist"></table>-->
         <!--<table tableName="exam_list" domainObjectName="Exam" />-->
         <!--<table tableName="kqclass_list" domainObjectName="Kqclass" />-->
+        <table tableName="phone" domainObjectName="Phone"/>
+        <!--<table tableName="room_list" domainObjectName="Room"/>-->
         <!--<table tableName="inform_list" domainObjectName="Inform" />-->
     </context>
 

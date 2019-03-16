@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GradeTable {
 
     @Autowired
-    MongoTemplate mongoTemplate;
+   private  MongoTemplate mongoTemplate;
 
     @GetMapping(value = "/grade")
     public String getStuGradeById(String id){
@@ -28,7 +28,6 @@ public class GradeTable {
         Query query1=new Query(Criteria.where("name").is("curriculum"));
         String curr=mongoTemplate.find(query1,String.class,collection).get(0);
         String result=mongoTemplate.find(query,String.class,collection).get(0);
-        //String result=mongoTemplate.findAll(String.class,collection).get(0);
         String info="{\"curr\":"+curr+",\"grade\":"+result+"}";
         return info;
     }

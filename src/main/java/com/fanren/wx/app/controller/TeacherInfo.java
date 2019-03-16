@@ -1,5 +1,8 @@
 package com.fanren.wx.app.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fanren.wx.app.pojo.College;
+import com.fanren.wx.app.pojo.Major;
 import com.fanren.wx.app.pojo.Teacher;
 import com.fanren.wx.app.serivce.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +27,17 @@ public class TeacherInfo {
 
 
     @GetMapping(value = "/teacher")
-    public List<Teacher> getTeacherInfo(@RequestParam(value = "department",required = false) String department,
-                                        @RequestParam(value = "curriculum",required = false) String curriculum,
-                                        @RequestParam(value = "name",required = false) String name){
-        System.out.println(department);
-        System.out.println(curriculum);
-        System.out.println(name);
-        return  teacherService.getTeacherInfo(department,curriculum,name);
+    public List<Teacher> getTeacherInfo(@RequestParam(value = "nameormajor") String nameormajor){
+
+        return  teacherService.getTeacherInfo(nameormajor);
+    }
+
+    @GetMapping(value = "/departmentAndmajor")
+    public String getDeptAndMajorInfo(){
+        List<College> result1=teacherService.getCollegeInfo();
+        List<Major> result2=teacherService.getMajorInfo();
+        String json=JSONObject.toJSONString(result1);
+        String json2=JSONObject.toJSONString(result2);
+        return "{\"college\":"+json+",\"major\":"+json2+"}";
     }
 }

@@ -1,8 +1,9 @@
 package com.fanren.wx.app.serivce;
 
+import com.fanren.wx.app.dao.CollegeMapper;
+import com.fanren.wx.app.dao.MajorMapper;
 import com.fanren.wx.app.dao.TeacherMapper;
-import com.fanren.wx.app.pojo.Teacher;
-import com.fanren.wx.app.pojo.TeacherExample;
+import com.fanren.wx.app.pojo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +19,23 @@ import java.util.List;
 public class TeacherService {
     @Autowired
     private TeacherMapper teacherMapper;
+    @Autowired
+    private CollegeMapper collegeMapper;
+    @Autowired
+    private MajorMapper majorMapper;
 
+    public List<Teacher> getTeacherInfo(String nameormajor){
 
-    public List<Teacher> getTeacherInfo(String department,String curriculum,String name){
-        TeacherExample example=new TeacherExample();
-        TeacherExample.Criteria criteria= example.createCriteria();
-        if(department!=null){
-            criteria.andDepartmentEqualTo(department);
-        }
-        if(curriculum!=null){
-            criteria.andTeachCurriculumEqualTo(curriculum);
-        }
-        if(name!=null){
-            criteria.andNameEqualTo(name);
-        }
-        return teacherMapper.selectByExample(example);
+        return teacherMapper.getTeacherInfoByNameOrCurr(nameormajor);
+    }
+
+    public List<College> getCollegeInfo(){
+        CollegeExample example=new CollegeExample();
+
+        return collegeMapper.selectByExample(example);
+    }
+    public List<Major> getMajorInfo(){
+        MajorExample example=new MajorExample();
+        return majorMapper.selectByExample(example);
     }
 }

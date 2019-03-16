@@ -3,6 +3,7 @@ package com.fanren.wx.app.controller;
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.app.pojo.CurriculumBackEntity;
 import com.fanren.wx.app.serivce.CurriculumService;
+import com.fanren.wx.app.util.HandlerClassses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,19 +23,12 @@ import java.util.List;
 public class CurriculumTable {
 
     @Autowired
-    CurriculumService curriculumService;
+    private CurriculumService curriculumService;
 
     @GetMapping(value = "/curr")
     public List<CurriculumBackEntity> getCurriculumInfo(@RequestParam(value = "classes") String classes,
                                                         @RequestParam(value="major") String major){
-        switch (major){
-            case "地理信息科学":
-                classes="地信"+classes;
-                break;
-            case"软件工程":
-                classes="软工"+classes;
-                break;
-        }
+        classes=HandlerClassses.MixClassesAndMajor(classes,major);
         List <Curriculum> curricula_list=curriculumService.getCurrInfo(classes);
         List<CurriculumBackEntity> result_list=new ArrayList<>();
         for(int i=0;i<curricula_list.size();i++){
