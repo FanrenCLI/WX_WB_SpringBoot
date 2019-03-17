@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -42,16 +42,22 @@ public class ResourceController_H {
         return resourceService_H.GetResource(name);
     }
 
-    @RequestMapping("/bin/resource_delete")
+    @RequestMapping("/bin/resource_delete_ftp")
     @ResponseBody
-    public void resource_delete(String name){
-        resourceService_H.resource_delete(name);
+    public void resource_delete(String name) throws IOException {
+        resourceService_H.resource_delete_ftp(name);
     }
 
-    @RequestMapping("/bin/resource_download")
+    @RequestMapping("/bin/resource_download_ftp")
     @ResponseBody
-    public void resource_download(String name, HttpServletResponse response) throws UnsupportedEncodingException{
-        resourceService_H.resource_download(name,response);
+    public void resource_download_ftp(String name, HttpServletResponse response) throws IOException {
+        resourceService_H.resource_download_ftp(name,response);
+    }
+
+    @RequestMapping("/bin/resource_upload_ftp")
+    @ResponseBody
+    public String resource_upload_ftp(@RequestParam("file")MultipartFile file,Resource resource) throws Exception {
+        return resourceService_H.resource_upload_ftp(file,resource);
     }
 
 }

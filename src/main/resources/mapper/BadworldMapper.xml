@@ -4,13 +4,6 @@
   <resultMap id="BaseResultMap" type="com.fanren.wx.app.pojo.Badworld">
     <result column="BadWorld" jdbcType="VARCHAR" property="badworld" />
   </resultMap>
-  <!--
-    //查询所有敏感词返回字符
-  Se<String> badworld_list_string();
--->
-  <select id="badworld_list" resultType="String">
-    select * from badworld_list
-  </select>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

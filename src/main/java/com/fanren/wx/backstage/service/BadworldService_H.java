@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.BadworldMapper;
 import com.fanren.wx.app.pojo.Badworld;
 import com.fanren.wx.app.pojo.BadworldExample;
@@ -7,6 +9,7 @@ import com.fanren.wx.backstage.util.BadWordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +52,20 @@ public class BadworldService_H {
     }
 
     public Set<String> badworld_list(){
-        return badworldMapper.badworld_list();
+        BadworldExample badworldExample = new BadworldExample();
+        List<Badworld> badworlds = badworldMapper.selectByExample(badworldExample);
+        Set<String> result = new HashSet<>();
+        for(int i=0;i<badworlds.size();i++){
+            result.add(badworlds.get(i).getBadworld());
+        }
+        return result;
+    }
+
+    public void badworld_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject)jsonArray.get(i);
+            badworld_delete(json.getString("badworld"));
+        }
     }
 }

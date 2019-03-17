@@ -24,7 +24,8 @@ public class BadworldController_H {
     @RequestMapping("/bin/badworld_list")
     @ResponseBody
     public Set<String> badworld_list(){
-        return badworldService_H.badworld_list();
+        Set<String> set = badworldService_H.badworld_list();
+        return set;
     }
 
     @RequestMapping("/bin/badworld_number")
@@ -39,10 +40,22 @@ public class BadworldController_H {
         return badworldService_H.GetBadworld(id);
     }
 
+    @RequestMapping("/bin/GetBadworld_string")
+    @ResponseBody
+    public Badworld GetBadworld_string(String id){
+        return badworldService_H.GetBadworld(id);
+    }
+
     @RequestMapping("/bin/badworld_delete")
     @ResponseBody
     public void badworld_delete(String id){
         badworldService_H.badworld_delete(id);
+    }
+
+    @RequestMapping("/bin/badworld_delete_many")
+    @ResponseBody
+    public void badworld_delete_many(String data){
+        badworldService_H.badworld_delete_many(data);
     }
 
     @RequestMapping("/bin/badworld_insert")

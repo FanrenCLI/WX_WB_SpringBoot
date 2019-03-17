@@ -19,6 +19,7 @@
 		<script type="text/javascript" src="datas/nav.js"></script>
 		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 		<script src="js/index.js"></script>
+		<script src="js/xadmin.js"></script>
 			
 		<!--锁屏模板 start-->
 		<script type="text/template" id="lock-temp">
@@ -35,6 +36,7 @@
 
 		<script type="text/javascript">
 			//获取cookie代码
+			var role = null;
 			var getCookie = function (name) {
 			  var arr;
 			  var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
@@ -57,6 +59,7 @@
                     dataType:"json",
                     data:{"id":id},
                     success:function (data) {
+                    	 role = data.role;
                       	 $("#user").append("<img src=\""+data.picture+"\" />");
                       	 $("#user").append("<span>"+data.openId+"</span>");
                     },
@@ -119,7 +122,8 @@
 				</div>
 			</div>
 			<div class="layui-side layui-bg-black" id="admin-side">
-				<div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side"></div>
+				<div class="layui-side-scroll" id="admin-navbar-side" lay-filter="side">
+				</div>
 			</div>
 			<div class="layui-body" style="bottom: 0;border-left: solid 2px #1AA094;" id="admin-body">
 				<div class="layui-tab admin-nav-card layui-tab-brief" lay-filter="admin-tab">

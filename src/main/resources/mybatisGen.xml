@@ -38,7 +38,7 @@
         <!--<table tableName="student_list" domainObjectName="Student" ></table>-->
         <!--<table tableName="college_list" domainObjectName="College" ></table>-->
         <!--<table tableName="major_list" domainObjectName="Major" ></table>-->
-        <table tableName="class_list" domainObjectName="Class" ></table>
+        <!--<table tableName="class_list" domainObjectName="Class" ></table>-->
         <!--<table tableName="teacher_list" domainObjectName="Teacher" ></table>-->
         <!--<table tableName="curriculum_list" domainObjectName="Curriculum" ></table>-->
         <!--<table tableName="resource_list" domainObjectName="Resource" ></table>-->
@@ -48,6 +48,7 @@
         <!--<table tableName="exam_list" domainObjectName="Exam" />-->
         <!--<table tableName="kqclass_list" domainObjectName="Kqclass" />-->
         <!--<table tableName="inform_list" domainObjectName="Inform" />-->
+        <table tableName="statistic_list" domainObjectName="Statistic" />
     </context>
 
 </generatorConfiguration>

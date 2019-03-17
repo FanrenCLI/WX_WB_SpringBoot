@@ -196,5 +196,37 @@ function x_admin_close(){
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
 }
+//自定义验证表单
+layui.use(['form','layer'], function(){
+    $ = layui.jquery;
+    var form = layui.form
+    ,layer = layui.layer;
+        
+	//自定义验证规则
+	form.verify({
+		nikename: function(value){
+	    	if(value.length < 5){
+	        	return '昵称至少得5个字符啊';
+	        }
+	    }
+	    ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+	    ,repass: function(value){
+	        if($('#L_pass').val()!=$('#L_repass').val()){
+	            return '两次密码不一致';
+	        }
+	    }
+	    ,userid:[/\d{6}/, '管理员编号必须6到12位数字']
+	    ,stuid:[/\d{10}/, '学号必须是10位数字']
+	});
+});
 
-
+//获取Cookie
+var getCookie = function (name) {
+			  var arr;
+			  var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+			  if (arr = document.cookie.match(reg)){
+			    return arr[2];
+			  }
+			  else
+			    return null;
+			};

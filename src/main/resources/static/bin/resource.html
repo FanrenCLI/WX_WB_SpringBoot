@@ -58,7 +58,6 @@
             dataType:"json",
             success:function(data){
               //alert(JSON.stringify(data));
-              layer.msg('正在查询，请稍等！');
               showTable(data);
               form.render('select');
             }
@@ -79,7 +78,7 @@
           var name = p.text();
           layer.confirm('确认要删除吗？',function(index){
             $.ajax({
-              url:"resource_delete",
+              url:"resource_delete_ftp",
               type:"POST",
               async:true,
               data:{"name":name},
@@ -95,7 +94,7 @@
         function download(obj){
           var p = $(obj).parents("tr").children("#title");
           var name = p.text();
-          var url = "/bin/resource_download?name="+name;
+          var url = "/bin/resource_download_ftp?name="+name;
           var form = $("<form></form>").attr("action", url).attr("method", "post");
           form.appendTo('body').submit().remove();
         }

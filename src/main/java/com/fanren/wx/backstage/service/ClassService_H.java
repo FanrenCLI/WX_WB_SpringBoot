@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.ClassMapper;
 import com.fanren.wx.app.pojo.Class;
 import com.fanren.wx.app.pojo.ClassExample;
@@ -25,11 +27,17 @@ public class ClassService_H {
     }
 
     public Class GetClass(String id){
-        return classMapper.selectByPrimaryKey(id);
+        ClassExample classExample = new ClassExample();
+        ClassExample.Criteria criteria = classExample.createCriteria();
+        criteria.andClassIdEqualTo(id);
+        return classMapper.selectByExample(classExample).get(0);
     }
 
     public void class_delete(String id){
-        classMapper.deleteByPrimaryKey(id);
+        ClassExample classExample = new ClassExample();
+        ClassExample.Criteria criteria = classExample.createCriteria();
+        criteria.andClassIdEqualTo(id);
+        classMapper.deleteByExample(classExample);
     }
 
     public void class_insert(Class c){
@@ -42,5 +50,13 @@ public class ClassService_H {
         criteria.andClassIdEqualTo(c.getClassId());
         Class o = (Class) UpdateSelective.selectiveFun(c);
         classMapper.updateByExampleSelective(o,classExample);
+    }
+
+    public void class_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject) jsonArray.get(i);
+            class_delete(json.getString("classId"));
+        }
     }
 }

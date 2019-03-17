@@ -2,6 +2,7 @@ package com.fanren.wx.backstage.controller;
 
 import com.fanren.wx.app.pojo.User;
 import com.fanren.wx.backstage.service.UserService_H;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +30,20 @@ public class UserController_H {
 
     @RequestMapping("/bin/user_list")
     @ResponseBody
-    public List<User> user_list(){
+    public String user_list(){
         List<User> users = userService_H.get_user_list();
-        return users;
+        JSONArray jsonArray = JSONArray.fromObject(users);
+        String result = "{\"code\":0,\"ms\":\"\",\"count\":0,\"data\":"+jsonArray+"}";
+        return result;
+    }
+
+    @RequestMapping("/bin/GetUser_string")
+    @ResponseBody
+    public String GetUser_string(String id){
+        User user = userService_H.GetUser(id);
+        JSONArray jsonArray = JSONArray.fromObject(user);
+        String result = "{\"code\":0,\"ms\":\"\",\"count\":0,\"data\":"+jsonArray+"}";
+        return result;
     }
 
     @RequestMapping("/bin/user_number")
@@ -68,5 +80,10 @@ public class UserController_H {
         }
     }
 
+    @RequestMapping("/bin/user_delete_many")
+    @ResponseBody
+    public void user_delete_many(String data){
+        userService_H.user_delete_many(data);
+    }
 
 }

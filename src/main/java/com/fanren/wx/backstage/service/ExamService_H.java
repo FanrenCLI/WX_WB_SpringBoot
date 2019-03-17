@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.ExamMapper;
 import com.fanren.wx.app.pojo.Exam;
 import com.fanren.wx.app.pojo.ExamExample;
@@ -49,5 +51,13 @@ public class ExamService_H {
         ExamExample.Criteria criteria = examExample.createCriteria();
         criteria.andNameEqualTo(name);
         examMapper.deleteByExample(examExample);
+    }
+
+    public void exam_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject)jsonArray.get(i);
+            exam_delete(json.getString("name"));
+        }
     }
 }

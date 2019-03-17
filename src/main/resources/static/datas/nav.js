@@ -1,58 +1,102 @@
 var navs = [
 {
-	"title":"管理员信息",
+	"title": "基本信息管理",
+	"icon": "&#xe663;",
+	"spread": true,
+	"children": [{
+		"title":"专业信息管理",
+		"icon":"&#xe705;",
+		"href":"bin/major.html",
+		"spread":false,
+		},{
+		"title":"院系信息管理",
+		"icon":"&#xe68e;",
+		"href":"bin/college.html",
+		"spread":false,
+		},{
+		"title":"班级信息管理",
+		"icon":"&#xe656;",
+		"href":"bin/class.html",
+		"spread":false,
+		},{
+		"title":"学生信息管理",
+		"icon":"&#xe770;",
+		"href":"bin/student.html",
+		"spread":false,
+		},{
+		"title":"教师信息",
+		"icon":"&#xe612;",
+		"href":"bin/teacher.html",
+		"spread":false,
+		},]
+},{
+	"title": "教学管理",
+	"icon": "&#xe632;",
+	"spread": false,
+	"children": [{
+		"title":"课表信息管理",
+		"icon":"&#xe629;",
+		"href":"bin/curriculum.html",
+		"spread":false,
+		},{
+		"title":"教学资源管理",
+		"icon":"&#xe6ed;",
+		"href":"bin/resource.html",
+		"spread":false,
+		},{
+		"title":"考试信息管理",
+		"icon":"&#xe6b2;",
+		"href":"bin/exam.html",
+		"spread":false,
+		},{
+		"title":"成绩信息管理",
+		"icon":"&#xe678;",
+		"href":"bin/grade.html",
+		"spread":false,
+		},{
+		"title":"考勤信息管理",
+		"icon":"&#xe679;",
+		"href":"bin/attend.html",
+		"spread":false,
+		},{
+		"title":"教学考评管理",
+		"icon":"&#xe62a;",
+		"href":"bin/jxkp.html",
+		"spread":false,
+		},]
+},{
+	"title":"成绩录入",
+	"icon":"&#xe642;",
+	"href":"bin/grade-add.html",
+	"spread":false,
+},{
+	"title":"数据分析",
+	"icon":"&#xe62c;",
+	"href":"bin/statistic.html",
+	"spread":false,
+},{
+	"title":"管理员信息管理",
 	"icon":"&#xe66f;",
 	"href":"bin/admin.html",
 	"spread":false,
-},
-{
-	"title":"学生信息",
-	"icon":"&#xe770;",
-	"href":"bin/student.html",
+},{
+	"title":"话题信息管理",
+	"icon":"&#xe63a;",
+	"href":"bin/topic.html",
 	"spread":false,
 },{
-	"title":"院系信息",
-	"icon":"&#xe68e;",
-	"href":"bin/college.html",
+	"title":"教务通知管理",
+	"icon":"&#xe606;",
+	"href":"bin/jwtz.html",
 	"spread":false,
 },{
-	"title":"专业信息",
-	"icon":"&#xe705;",
-	"href":"bin/major.html",
-	"spread":false,
-},{
-	"title":"班级信息",
-	"icon":"&#xe656;",
-	"href":"bin/class.html",
-	"spread":false,
-},{
-	"title":"教师信息",
-	"icon":"&#xe612;",
-	"href":"bin/teacher.html",
-	"spread":false,
-},{
-	"title":"课程信息",
-	"icon":"&#xe629;",
-	"href":"bin/curriculum.html",
-	"spread":false,
-},{
-	"title":"旷课信息",
-	"icon":"&#xe679;",
-	"href":"bin/attend.html",
-	"spread":false,
-},{
-	"title":"考试信息",
+	"title":"问卷调查管理",
 	"icon":"&#xe6b2;",
-	"href":"bin/exam.html",
-	"spread":false,
-},{
-	"title":"教学资源",
-	"icon":"&#xe6ed;",
-	"href":"bin/resource.html",
+	"href":"bin/wjdc.html",
 	"spread":false,
 },{
 	"title":"敏感词管理",
-	"icon":"&#xe702;",
+	"icon":"&#xe664;",
 	"href":"bin/badworld.html",
 	"spread":false,
 },{
@@ -60,30 +104,5 @@ var navs = [
 	"icon":"&#xe631;",
 	"href":"bin/util-exam.html",
 	"spread":false,
-},{
-	"title": "基本元素",
-	"icon": "fa-cubes",
-	"spread": false,
-	"children": [{
-		"title": "按钮",
-		"icon": "&#xe641;",
-		"href": "button.html"
-	}, {
-		"title": "表单",
-		"icon": "&#xe63c;",
-		"href": "form.html"
-	}, {
-		"title": "表格",
-		"icon": "&#xe63c;",
-		"href": "table.html"
-	}, {
-		"title": "导航",
-		"icon": "&#xe609;",
-		"href": "nav.html"
-	}, {
-		"title": "辅助性元素",
-		"icon": "&#xe60c;",
-		"href": "auxiliar.html"
-	}]
-}
+},
 ];

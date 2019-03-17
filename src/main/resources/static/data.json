@@ -1,0 +1,36 @@
+{
+	"code":0,
+	"msg":"",
+	"count":0,
+	"data":[{
+		"studentId": "1622022018",
+		"name": "刘浩",
+		"cyd": "100",
+		"zxsc": "60",
+		"lxt": "40",
+		"sum": "200",
+		"mean": "70",
+		"rank": "1",
+		"picture":"http://localhost:8080/20190220211815894.jpg"
+	}, {
+		"studentId": "1622022017",
+		"name": "凌绍岩",
+		"cyd": "50",
+		"zxsc": "50",
+		"lxt": "50",
+		"sum": "150",
+		"mean": "50",
+		"rank": "3",
+		"picture":"http://localhost:8080/20190220211815894.jpg"
+	}, {
+		"studentId": "1622022016",
+		"name": "张承献",
+		"cyd": "60",
+		"zxsc": "60",
+		"lxt": "60",
+		"sum": "180",
+		"mean": "60",
+		"rank": "2",
+		"picture":"http://localhost:8080/20190220211815894.jpg"
+	}]
+}

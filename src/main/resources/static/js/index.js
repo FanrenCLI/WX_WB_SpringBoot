@@ -41,6 +41,16 @@ layui.config({
 	navbar.render();
 	//监听点击事件
 	navbar.on('click(side)', function(data) {
+		var title = data.field.title;
+		if(title == "成绩录入"){
+			tab.tabAdd(data.field);
+			return;
+		}
+		if(role!="admin"){
+			layer.alert("暂未开放权限！",{icon:5});
+			return;
+		}
+		layer.msg("正在查询请稍等！");
 		tab.tabAdd(data.field);
 	});
 

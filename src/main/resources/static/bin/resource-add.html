@@ -22,22 +22,42 @@
 				form.on('submit(add)', function(data) {
 					var formdata = new FormData($("#formdata")[0]);
 					$.ajax({
-						url: "resource_upload",
+						url: "resource_upload_ftp",
 						type: 'post',
 						data: formdata,
 						cache: false,
-						async: false,
+						async: true,
 						processData: false, //必须false才会避开jQuery对 formdata 的默认处理
 						contentType: false, //必须false才会自动加上正确的Content-Type
 						success: function(data) {
-							layer.alert("增加成功", {
-								icon: 6
-							}, function() {
-								// 获得frame索引
-								var index = parent.layer.getFrameIndex(window.name);
-								//关闭当前frame
-								parent.layer.close(index);
-							});
+						    if(data=="成功"){
+                                layer.alert("上传成功", {
+                                    icon: 6
+                                }, function() {
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                            }else if (data=="存在"){
+								layer.alert("上传失败,文件以存在", {
+									icon: 5
+								}, function() {
+									// 获得frame索引
+									var index = parent.layer.getFrameIndex(window.name);
+									//关闭当前frame
+									parent.layer.close(index);
+								});
+                            }else if (data=="格式错误"){
+                                layer.alert("格式错误,仅支持:视频,doc|docx|xls|xlsx|ppt|pptx|pdf", {
+                                    icon: 5
+                                }, function() {
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                            }
 						},
 					});
 					return false;
@@ -62,7 +82,7 @@
                   <span class="x-red">*</span>上传人编号
               </label>
 					<div class="layui-input-inline">
-						<input type="text" id="uploaderId" name="uploaderId" required="" lay-verify="required" autocomplete="off" class="layui-input">
+						<input type="text" id="uploaderId" name="uploaderId" required="" lay-verify="number" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">

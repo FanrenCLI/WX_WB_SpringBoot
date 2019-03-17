@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.CollegeMapper;
 import com.fanren.wx.app.pojo.College;
 import com.fanren.wx.app.pojo.CollegeExample;
@@ -41,5 +43,13 @@ public class CollegeService_H {
         criteria.andCollegeIdEqualTo(college.getCollegeId());
         College o = (College) UpdateSelective.selectiveFun(college);
         collegeMapper.updateByExample(o,collegeExample);
+    }
+
+    public void college_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject)jsonArray.get(i);
+            deleteCollege(json.getString("collegeId"));
+        }
     }
 }

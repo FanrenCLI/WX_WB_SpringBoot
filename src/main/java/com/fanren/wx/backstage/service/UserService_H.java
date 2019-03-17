@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.UserMapper;
 import com.fanren.wx.app.pojo.User;
 import com.fanren.wx.app.pojo.UserExample;
@@ -23,7 +25,7 @@ public class UserService_H {
         criteria.andUserIdEqualTo(user.getUserId());
         List<User> users = userMapper.selectByExample(userExample);
         for(User u:users){
-            if(user.getPwd().equals(u.getPwd()) && "admin".equals(u.getRole())){
+            if(user.getPwd().equals(u.getPwd())){
                 flag=true;
             }
         }
@@ -83,6 +85,16 @@ public class UserService_H {
         UserExample.Criteria criteria = userExample.createCriteria();
         criteria.andUserIdEqualTo(user.getUserId());
         User u = (User) UpdateSelective.selectiveFun(user);
+        userMapper.updateByExampleSelective(u,userExample);
+    }
+
+    public void user_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject) jsonArray.get(i);
+            String id = json.getString("userId");
+            user_delete(id);
+        }
     }
 
 }

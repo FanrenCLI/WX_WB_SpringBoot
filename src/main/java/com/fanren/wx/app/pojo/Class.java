@@ -3,6 +3,8 @@ package com.fanren.wx.app.pojo;
 public class Class {
     private String classId;
 
+    private String name;
+
     private String majorId;
 
     private String studentNumber;
@@ -15,6 +17,14 @@ public class Class {
 
     public void setClassId(String classId) {
         this.classId = classId == null ? null : classId.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getMajorId() {

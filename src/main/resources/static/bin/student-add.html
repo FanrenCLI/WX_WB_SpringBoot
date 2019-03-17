@@ -51,7 +51,7 @@
                   <span class="x-red">*</span>学号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="studentId" name="studentId" required="" lay-verify="required"
+                  <input type="text" id="studentId" name="studentId" required="" lay-verify="stuid"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -65,20 +65,23 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label for="sex" class="layui-form-label">
-                  <span class="x-red">*</span>性别
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="sex" name="sex" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
+							<label for="sex" class="layui-form-label">
+          			<span class="x-red">*</span>性别
+	            </label>
+							<div class="layui-input-inline">
+								<select id="sex" name="sex" lay-verify="required">
+									<option value=""></option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</div>
+					</div>
           <div class="layui-form-item">
               <label for="idCard" class="layui-form-label">
                   <span class="x-red">*</span>身份证号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="idCard" name="idCard" required="" lay-verify="required"
+                  <input type="text" id="idCard" name="idCard" required="" lay-verify="identity"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -111,10 +114,10 @@
           </div>
           <div class="layui-form-item">
               <label for="phone" class="layui-form-label">
-                  <span class="x-red"></span>电话
+                  <span class="x-red">*</span>电话
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" name="phone"
+                  <input type="text" id="phone" name="phone" lay-verify="phone"
                   autocomplete="off" class="layui-input">
               </div>
           </div>

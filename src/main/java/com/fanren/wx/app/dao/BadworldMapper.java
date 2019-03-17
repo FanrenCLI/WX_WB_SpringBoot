@@ -6,12 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public interface BadworldMapper {
-    //查询所有敏感词返回string型
-    Set<String> badworld_list();
     long countByExample(BadworldExample example);
 
     int deleteByExample(BadworldExample example);

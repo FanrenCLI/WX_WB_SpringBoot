@@ -2,6 +2,7 @@ package com.fanren.wx.backstage.controller;
 
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.backstage.service.CurriculumService_H;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,11 @@ public class CurriculumController_H {
 
     @RequestMapping("/bin/curriculum_list")
     @ResponseBody
-    public List<Curriculum> curriculum_list(){
-        return  curriculumService_H.curriculum_list();
+    public String curriculum_list(){
+        List<Curriculum> curricula = curriculumService_H.curriculum_list();
+        JSONArray jsonArray = JSONArray.fromObject(curricula);
+        String result = "{\"code\":0,\"ms\":\"\",\"count\":0,\"data\":"+jsonArray+"}";
+        return result;
     }
 
     @RequestMapping("/bin/curriculum_number")
@@ -30,6 +34,15 @@ public class CurriculumController_H {
     @ResponseBody
     public Curriculum GetCurriculum(String name){
         return curriculumService_H.GetCurriculum(name);
+    }
+
+    @RequestMapping("/bin/GetCurriculum_string")
+    @ResponseBody
+    public String GetCurriculum_string(String name){
+        Curriculum curriculum = curriculumService_H.GetCurriculum(name);
+        JSONArray jsonArray = JSONArray.fromObject(curriculum);
+        String result = "{\"code\":0,\"ms\":\"\",\"count\":0,\"data\":"+jsonArray+"}";
+        return result;
     }
 
     @RequestMapping("/bin/curriculum_insert")
@@ -48,5 +61,11 @@ public class CurriculumController_H {
     @ResponseBody
     public void curriculum_delete(String name){
         curriculumService_H.curriculum_delete(name);
+    }
+
+    @RequestMapping("/bin/curriculum_delete_many")
+    @ResponseBody
+    public void curriculum_delete_many(String data){
+        curriculumService_H.curriculum_delete_many(data);
     }
 }

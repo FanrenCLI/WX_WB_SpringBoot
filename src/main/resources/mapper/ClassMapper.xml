@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fanren.wx.app.dao.ClassMapper">
   <resultMap id="BaseResultMap" type="com.fanren.wx.app.pojo.Class">
-    <id column="class_ID" jdbcType="VARCHAR" property="classId" />
+    <result column="class_ID" jdbcType="VARCHAR" property="classId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="major_ID" jdbcType="VARCHAR" property="majorId" />
     <result column="student_number" jdbcType="VARCHAR" property="studentNumber" />
     <result column="headmaster_ID" jdbcType="VARCHAR" property="headmasterId" />
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    class_ID, major_ID, student_number, headmaster_ID
+    class_ID, name, major_ID, student_number, headmaster_ID
   </sql>
   <select id="selectByExample" parameterType="com.fanren.wx.app.pojo.ClassExample" resultMap="BaseResultMap">
     select
@@ -82,16 +83,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from class_list
-    where class_ID = #{classId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from class_list
-    where class_ID = #{classId,jdbcType=VARCHAR}
-  </delete>
   <delete id="deleteByExample" parameterType="com.fanren.wx.app.pojo.ClassExample">
     delete from class_list
     <if test="_parameter != null">
@@ -99,16 +90,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fanren.wx.app.pojo.Class">
-    insert into class_list (class_ID, major_ID, student_number, 
-      headmaster_ID)
-    values (#{classId,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}, #{studentNumber,jdbcType=VARCHAR}, 
-      #{headmasterId,jdbcType=VARCHAR})
+    insert into class_list (class_ID, name, major_ID, 
+      student_number, headmaster_ID)
+    values (#{classId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}, 
+      #{studentNumber,jdbcType=VARCHAR}, #{headmasterId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fanren.wx.app.pojo.Class">
     insert into class_list
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="classId != null">
         class_ID,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="majorId != null">
         major_ID,
@@ -123,6 +117,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="classId != null">
         #{classId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="majorId != null">
         #{majorId,jdbcType=VARCHAR},
@@ -147,6 +144,9 @@
       <if test="record.classId != null">
         class_ID = #{record.classId,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.majorId != null">
         major_ID = #{record.majorId,jdbcType=VARCHAR},
       </if>
@@ -164,33 +164,12 @@
   <update id="updateByExample" parameterType="map">
     update class_list
     set class_ID = #{record.classId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       major_ID = #{record.majorId,jdbcType=VARCHAR},
       student_number = #{record.studentNumber,jdbcType=VARCHAR},
       headmaster_ID = #{record.headmasterId,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanren.wx.app.pojo.Class">
-    update class_list
-    <set>
-      <if test="majorId != null">
-        major_ID = #{majorId,jdbcType=VARCHAR},
-      </if>
-      <if test="studentNumber != null">
-        student_number = #{studentNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="headmasterId != null">
-        headmaster_ID = #{headmasterId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where class_ID = #{classId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fanren.wx.app.pojo.Class">
-    update class_list
-    set major_ID = #{majorId,jdbcType=VARCHAR},
-      student_number = #{studentNumber,jdbcType=VARCHAR},
-      headmaster_ID = #{headmasterId,jdbcType=VARCHAR}
-    where class_ID = #{classId,jdbcType=VARCHAR}
   </update>
 </mapper>

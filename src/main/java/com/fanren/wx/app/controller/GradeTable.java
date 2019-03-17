@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 /**
  * @Author: FanrenCLI
  * @Date: 2019/3/1 13:17
@@ -32,4 +31,5 @@ public class GradeTable {
         String info="{\"curr\":"+curr+",\"grade\":"+result+"}";
         return info;
     }
+
 }

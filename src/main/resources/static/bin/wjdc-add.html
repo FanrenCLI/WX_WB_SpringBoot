@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>欢迎页面-X-admin2.0</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../css/font.css">
+		<link rel="stylesheet" href="../css/xadmin.css">
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/xadmin.js"></script>
+		<script type="text/javascript">
+			layui.use(['form', 'layer'], function() {
+				$ = layui.jquery;
+				var form = layui.form;
+				var layer = layui.layer;
+				//监听提交
+				form.on('submit(add)', function(data) {
+					var formdata = new FormData($("#formdata")[0]);
+					$.ajax({
+						url: "wjdc_upload",
+						type: 'post',
+						data: formdata,
+						cache: false,
+						async: true,
+						processData: false, //必须false才会避开jQuery对 formdata 的默认处理
+						contentType: false, //必须false才会自动加上正确的Content-Type
+						success: function(data) {
+						    if(data=="成功"){
+                                layer.alert("上传成功", {
+                                    icon: 6
+                                }, function() {
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                            }else if (data=="存在"){
+								layer.alert("上传失败,文件以存在", {
+									icon: 5
+								}, function() {
+									// 获得frame索引
+									var index = parent.layer.getFrameIndex(window.name);
+									//关闭当前frame
+									parent.layer.close(index);
+								});
+                            }else if (data=="格式错误"){
+                                layer.alert("格式错误,仅支持:视频,doc|docx|xls|xlsx|ppt|pptx|pdf", {
+                                    icon: 5
+                                }, function() {
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                });
+                            }
+						},
+					});
+					return false;
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="x-body">
+			<form id="formdata" class="layui-form" enctype="multipart/form-data">
+				<div class="layui-form-item">
+					<label for="file" class="layui-form-label">
+                  <span class="x-red">*</span>教务通知文件
+              </label>
+					<div class="layui-input-inline">
+						<input type="file" id="file" name="file" required="required"><br />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="auth" class="layui-form-label">
+                  <span class="x-red">*</span>发布人名称
+              </label>
+					<div class="layui-input-inline">
+						<input type="text" id="auth" name="auth" required="" lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="L_repass" class="layui-form-label">
+              </label>
+					<button style="padding: 0px 80px;" class="layui-btn" lay-filter="add" lay-submit="">
+                  		上传
+              </button>
+				</div>
+			</form>
+		</div>
+	</body>
+
+</html>

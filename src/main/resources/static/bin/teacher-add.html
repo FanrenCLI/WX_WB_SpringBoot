@@ -51,7 +51,7 @@
                   <span class="x-red">*</span>教师编号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="teacherId" name="teacherId" lay-verify="required"
+                  <input type="text" id="teacherId" name="teacherId" lay-verify="number"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
@@ -81,7 +81,7 @@
                   <span class="x-red">*</span>身份证号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="idCard" name="idCard" lay-verify="required"
+                  <input type="text" id="idCard" name="idCard" lay-verify="identity"
                   autocomplete="off" class="layui-input">
               </div>
             </div>
@@ -114,10 +114,10 @@
             </div>
             <div class="layui-form-item">
               <label for="phone" class="layui-form-label">
-                  <span class="x-red"></span>电话
+                  <span class="x-red">*</span>电话
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="phone" name="phone"
+                  <input type="text" id="phone" name="phone" lay-verify="phone"
                   autocomplete="off" class="layui-input">
               </div>
             </div>

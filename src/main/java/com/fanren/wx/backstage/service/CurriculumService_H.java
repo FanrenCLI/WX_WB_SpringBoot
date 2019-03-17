@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.CurriculumMapper;
 import com.fanren.wx.app.pojo.Curriculum;
 import com.fanren.wx.app.pojo.CurriculumExample;
@@ -51,6 +53,14 @@ public class CurriculumService_H {
         CurriculumExample.Criteria criteria = curriculumExample.createCriteria();
         criteria.andKcmcEqualTo(name);
         curriculumMapper.deleteByExample(curriculumExample);
+    }
+
+    public void curriculum_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json= (JSONObject)jsonArray.get(i);
+            curriculum_delete(json.getString("kcmc"));
+        }
     }
 
 }

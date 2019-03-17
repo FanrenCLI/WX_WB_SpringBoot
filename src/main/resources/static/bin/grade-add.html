@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+
+    <script type="text/javascript">
+        //记录教师id
+        var id = null;
+        //记录所选课程
+        var curriculumn = null;
+
+        $(function () {
+            //取出数据，并上传。
+            $("#btn").click(function () {
+                var grade = "["+TbableData()+"]";
+                $.ajax({
+                    url: "input_grade",
+                    type: "post",
+                    async: true,
+                    data: {"grade": grade,"curr":curriculumn},
+                    dataType: "text",
+                    success: function (data) {
+                        layer.msg("成绩上传成功！", {icon: 6});
+                    },
+                });
+            });
+            //获取教师所授课程和上课班级
+            id = getCookie('userId');
+            $.ajax({
+                url: "GetCurriculum_grade",
+                type: "GET",
+                async: true,
+                data: {"id": id},
+                dataType: "json",
+                success: function (data) {
+                    $.each(data,function (key,item) {
+                        var itemTD = $("<option></option>").attr("title",item.skbj).append(item.kcmc);
+                        $("#kecheng").append(itemTD);
+                        renderForm();
+                    })
+                },
+            });
+            //查询对应课程的学生
+            $("#query_students").click(function () {
+                curriculumn = $("#kecheng").find("option:selected").text();
+                var classname = $("#banji").find("option:selected").text();
+                $.ajax({
+                    url: "GetStudent_grade",
+                    type: "GET",
+                    async: false,
+                    data: {"classname": classname},
+                    dataType: "json",
+                    success: function (data) {
+                        showTable(data);
+                        listener();
+                    },
+                });
+
+            });
+            //展示表格
+            function showTable(data) {
+                $("tbody").empty();
+                $.each(data,function (key,item) {
+                    var studentIdTD = $("<td></td>").attr("name","studentId").append(item.studentId);
+                    var nameTD = $("<td></td>").attr("name","name").append(item.name);
+                    var normalTD = $("<td class='edit'></td>").attr("name","normal").append(0);
+                    var examTD = $("<td class='edit'></td>").attr("name","exam").append(0);
+                    var sumTD = $("<td class='edit'></td>").attr("name","sum").append(0);
+                    $("<tr></tr>").append(studentIdTD).append(nameTD).append(normalTD).append(examTD).append(sumTD).appendTo("tbody");
+                })
+            }
+            //表格渲染
+            function renderForm(){
+                layui.use('form', function(){
+                    var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+                    form.render();
+                });
+            }
+            //绑定监听事件
+            function listener() {
+                //点击单元格变换成可编辑框
+                $("#tab").find(".edit").click(function a() {
+                    var inputSize = $(this).find("input").size();
+                    if (inputSize > 0) return;
+                    var tdText = $(this).text();
+                    var inputObj = $('<input class="layui-text" type="text" />');
+                    $(this).empty().append(inputObj);
+                    inputObj.val(tdText); //给单个td绑定单击事件，当点击时增加<input/>
+                    $("#tab").find("input").blur(function () {
+                        var inputText = $(this).val();
+                        $(this).parent().html(inputText);
+                        $(this).click(a);
+                    }); //当input失去焦点时，变量inputText保存当前值，清空当前父元素的内容并填充文本，在给当前td重新拥有点击事件
+                });
+            }
+
+        });
+        //院系下拉框改变
+        layui.use(['layer', 'jquery', 'form'], function () {
+            var layer = layui.layer,
+                $ = layui.jquery,
+                form = layui.form;
+                //监听课程下拉框改变
+                form.on('select(kecheng)', function(data){
+                    $("#banji").empty();
+                    $("#banji").append($("<option></option>").append("请选择班级"));
+                    var classes = $("#kecheng").find("option:selected").attr("title");
+                    var classarr = classes.split(",");
+                    for (var i=0;i<classarr.length;i++){
+                        var itemTD = $("<option></option>").append(classarr[i]);
+                        $("#banji").append(itemTD);
+                    }
+                    form.render();
+                });
+        });
+        //取出表格的所有数据
+        function TbableData() {
+            var inputObj = $("#tab").find("input[type='text']");
+            if (inputObj.size() > 0) {
+                inputObj.each(function () {
+                    var val = $(this).val();
+                    $(this).parent().empty().html(val);
+                });
+            };//单击保存按钮，使其清空所有input
+            var JsonText = "";
+            $("#tab").find("tr:not(:first)").each(function () {
+                JsonText += "{";
+                $(this).find("td").each(function () {
+                    JsonText += '"' + $(this).attr("name") + '":"' + $(this).text() + '",';
+                });
+                JsonText = JsonText.substr(0, JsonText.length - 1);
+                JsonText += "},";
+            });
+            JsonText = JsonText.substr(0, JsonText.length - 1);
+            return JsonText;
+        }
+    </script>
+</head>
+
+<body>
+<div class="x-nav">
+			<span class="layui-breadcrumb">
+        <a><cite>学生成绩录入</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form id="formdata" class="layui-form layui-col-md12  layui-form-pane">
+            <div class="layui-form-item">
+                <label class="layui-form-label">课程班级</label>
+                <div class="layui-input-inline">
+                    <select id="kecheng" name="kecheng" lay-filter="kecheng">
+                        <option value="">请选择课程</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="banji" name="banji" lay-filter="banji">
+                        <option value="">请选择班级</option>
+                    </select>
+                </div>
+                <input type="button" id="query_students" value="查询学生" class="layui-btn"></input>
+            </div>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn" id="btn">上传成绩</button>
+        <!--<span class="x-left" style="line-height:40px;font-size: larger;">成绩录入</span>-->
+    </xblock>
+    <table id="tab" class="layui-table">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>平时成绩</th>
+                <th>考试成绩</th>
+                <th>总评</th>
+            </tr>
+        </thead>
+        <tbody>
+        <!--<tr>-->
+            <!--<td name="studentId">1622022018</td>-->
+            <!--<td name="name">刘浩</td>-->
+            <!--<td class="edit" name="normal">100</td>-->
+            <!--<td class="edit" name="exam">100</td>-->
+            <!--<td class="edit" name="sum">100</td>-->
+        <!--</tr>-->
+        </tbody>
+	</table>
+</div>
+</body>
+
+</html>

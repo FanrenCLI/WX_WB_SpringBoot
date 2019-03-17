@@ -1,5 +1,7 @@
 package com.fanren.wx.backstage.service;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.fanren.wx.app.dao.AttendMapper;
 import com.fanren.wx.app.pojo.Attend;
 import com.fanren.wx.app.pojo.AttendExample;
@@ -51,6 +53,14 @@ public class AttendService_H {
         criteria.andStudentIdEqualTo(attend.getStudentId());
         Attend o = (Attend)UpdateSelective.selectiveFun(attend);
         attendMapper.updateByExampleSelective(o,attendExample);
+    }
+
+    public void attend_delete_many(String data){
+        JSONArray jsonArray = JSONArray.parseArray(data);
+        for (int i=0;i<jsonArray.size();i++){
+            JSONObject json = (JSONObject)jsonArray.get(i);
+            attend_delete(json.getString("studentId"));
+        }
     }
 
 }

@@ -46,39 +46,48 @@
   <body>
     <div class="x-body">
         <form class="layui-form" >
-          <div class="layui-form-item">
-              <label for="classId" class="layui-form-label">
-                  <span class="x-red">*</span>班级编号
-              </label>
-              <div class="layui-input-inline">
-                  <input type="text" id="classId" name="classId" required="" lay-verify="required"
-                  autocomplete="off" class="layui-input">
-              </div>
-          </div>
+            <div class="layui-form-item">
+                <label for="classId" class="layui-form-label">
+                    <span class="x-red">*</span>班级编号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="classId" name="classId" required="" lay-verify="number"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="x-red">*</span>班级名称
+                </label>
+                <div class="layui-input-inline"> 
+                    <input type="text" id="name" name="name" lay-verify="required"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
           <div class="layui-form-item">
               <label for="majorId" class="layui-form-label">
                   <span class="x-red">*</span>专业编号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="majorId" name="majorId" required="" lay-verify="required"
+                  <input type="text" id="majorId" name="majorId" required="" lay-verify="number"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
               <label for="studentNumber" class="layui-form-label">
-                  <span class="x-red"></span>学生数量
+                  <span class="x-red">*</span>学生数量
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="studentNumber" name="studentNumber" required="" lay-verify="required"
+                  <input type="text" id="studentNumber" name="studentNumber" required="" lay-verify="number"
                   autocomplete="off" class="layui-input">
               </div>
           </div>
           <div class="layui-form-item">
               <label for="headmasterId" class="layui-form-label">
-                  <span class="x-red"></span>班主任编号
+                  <span class="x-red">*</span>班主任编号
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="headmasterId" name="headmasterId" required="" lay-verify="required"
+                  <input type="text" id="headmasterId" name="headmasterId" required="" lay-verify="number"
                   autocomplete="off" class="layui-input">
               </div>
           </div>

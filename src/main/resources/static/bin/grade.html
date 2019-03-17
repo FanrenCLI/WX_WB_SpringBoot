@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/xadmin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/xadmin.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#nianji").change(function () {
+                alert(this.val());
+            });
+            //查询单个学生成绩
+            $("#GetBtn").click(function () {
+                var id = $("#student_ID").val();
+                if(id==""){
+                    layer.msg('请输入学号！');
+                    return;
+                }
+                layer.msg('正在查询请稍等...');
+                $.ajax({
+                    url:"grade",
+                    type:"GET",
+                    async:true,
+                    data:{"id":id},
+                    dataType:"json",
+                    success:function (data) {
+                        TableHead(data.curr);
+                        TableGrade(data.grade);
+                    },
+                    error:function () {
+                        layer.msg('请输入正确的学号！');
+                    }
+                });
+            });
+            //加载院系信息
+            $.ajax({
+                url:"GetCollege_grade",
+                type:"GET",
+                async:true,
+                dataType:"json",
+                success:function (data) {
+                    $.each(data,function (key,item) {
+                        var itemTD = $("<option></option>").attr("value",item.collegeId).append(item.name);
+                        $("#yuanxi").append(itemTD);
+                    });
+                    renderForm();
+                },
+            });
+
+        });
+
+        //个人成绩信息
+        function TableGrade(data) {
+            $("tbody tr").remove();
+            var nameTD = $("<td></td>").append(data.name);
+            var studidTD = $("<td></td>").append(data.stuid);
+            var bar = $("<tr></tr>");
+            bar.append(nameTD).append(studidTD)
+            $("tbody tr").append(nameTD).append(studidTD);
+            $.each(data,function (key,item) {
+                var str = key.charAt(key.length-1);
+                if(str=="2"){
+                    var gradeTD = $("<td></td>").append(item);
+                    bar.append(gradeTD);
+                }
+            });
+            bar.appendTo("tbody");
+        }
+        //多人成绩信息
+        function TableGrades(data) {
+            $("tbody tr").remove();
+            $.each(data,function (key,item) {
+                // alert(JSON.stringify(item));
+                if (item.name != "curriculum"){
+                    if (item.collegeone !=null){
+                        return true;
+                    }
+                    var nameTD = $("<td></td>").append(item.name);
+                    var studidTD = $("<td></td>").append(item.stuid);
+                    var bar = $("<tr></tr>");
+                    bar.append(nameTD).append(studidTD)
+                    $.each(item,function (key2,item2) {
+                        var str = key2.charAt(key2.length-1);
+                        if(str=="2"){
+                            var gradeTD = $("<td></td>").append(item2);
+                            bar.append(gradeTD);
+                        }
+                    });
+                    bar.appendTo("tbody");
+                }
+            });
+        }
+        //动态表头
+        function TableHead(data) {
+            $("thead tr th").remove();
+            var nameTD = $("<th></th>").append("姓名");
+            var studidTD = $("<th></th>").append("学号");
+            $("thead tr").append(nameTD).append(studidTD);
+            $.each(data,function (key,item) {
+                //alert(key);
+                if(key!="_id"){
+                    if(key!="name"){
+                        var subjectTD = $("<th></th>").append(item);
+                        $("thead tr").append(subjectTD);
+                    }
+                }
+            });
+        }
+        //表格渲染
+        function renderForm(){
+            layui.use('form', function(){
+                var form = layui.form;//高版本建议把括号去掉，有的低版本，需要加()
+                form.render();
+            });
+        }
+        //院系下拉框改变
+        layui.use(['layer', 'jquery', 'form'], function () {
+            var layer = layui.layer,
+                $ = layui.jquery,
+                form = layui.form;
+            //监听院系变化实现加载专业
+            form.on('select(yuanxi)', function(data){
+                var id = $("#yuanxi").val();
+                $.ajax({
+                    url:"GetMajor_grade",
+                    type:"GET",
+                    async:true,
+                    data:{"id":id},
+                    dataType:"json",
+                    success:function (data) {
+                        $("#zhuanye option").remove();
+                        var TD = $("<option></option>").append("请选择专业");
+                        $("#zhuanye").append(TD);
+                        $.each(data,function (key,item) {
+                            var itemTD = $("<option></option>").attr("value",item.majorId).append(item.name);
+                            $("#zhuanye").append(itemTD);
+                        });
+                        renderForm();
+                    },
+                });
+            });
+            //监听专业变化实现加载班级
+            form.on('select(zhuanye)', function(data){
+                var id = $("#zhuanye").val();
+                $.ajax({
+                    url:"GetClass_grade",
+                    type:"GET",
+                    async:true,
+                    data:{"id":id},
+                    dataType:"json",
+                    success:function (data) {
+                        $("#banji option").remove();
+                        var TD = $("<option></option>").append("请选择班级");
+                        $("#banji").append(TD);
+                        $.each(data,function (key,item) {
+                            var itemTD = $("<option></option>").attr("value",item.classId).append(item.name);
+                            $("#banji").append(itemTD);
+                        });
+                        renderForm();
+                    },
+                });
+            });
+            //监听查询条件
+            form.on('submit(add)',function (data) {
+                // alert(JSON.stringify(data.field));
+                var str = JSON.stringify(data.field);
+                if(data.field.zhuanye=="请选择专业"){
+                    alert("请选择年级，院系，专业！");
+                    return;
+                }
+                $.ajax({
+                    url:"GetGrade",
+                    type:"GET",
+                    async:true,
+                    data:{"data":str},
+                    dataType:"json",
+                    success:function (data) {
+                        TableHead(data.curr);
+                        TableGrades(data.grade);
+                        //alert(data.grade);
+                    },
+                });
+                return false;
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a><cite>学生成绩查询</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so" onsubmit="return false">
+            <font size="4">请输入学号：</font>
+            <input type="text" id="student_ID" autocomplete="off" class="layui-input">
+            <input class="layui-btn" type="button" id="GetBtn" value="查询">
+        </form>
+    </div>
+    <div class="layui-row">
+        <form id="formdata" class="layui-form layui-col-md12  layui-form-pane">
+            <div class="layui-form-item">
+                <label class="layui-form-label">查询条件</label>
+                <div class="layui-input-inline">
+                    <select id="nianji" name="nianji" lay-filter="nianji" lay-verify="required">
+                        <option value="">请选择年级</option>
+                        <option value="18">大一</option>
+                        <option value="17">大二</option>
+                        <option value="16">大三</option>
+                        <option value="15">大四</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="yuanxi" name="yuanxi" lay-filter="yuanxi" lay-verify="required">
+                        <option value="">请选择院系</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="zhuanye" name="zhuanye" lay-filter="zhuanye">
+                        <option value="">请选择专业</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="banji" name="banji" >
+                        <option value="">请选择班级</option>
+                    </select>
+                </div>
+                <button class="layui-btn" lay-filter="add" lay-submit="">查询</button>
+            </div>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn layui-btn-danger" onclick="x_admin_show('添加管理员','grade-delete.html',450,200)"><i class="layui-icon">&#xe640;</i>删除成绩</button>
+        <button class="layui-btn" onclick="x_admin_show('更新成绩信息','grade-edit.html',500,400)"><i class="layui-icon">&#xe9aa;</i>更新成绩</button>
+        <span class="x-right" style="line-height:40px"></span>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>姓名</th>
+            <th>学号</th>
+            <th>科目</th>
+            <th>科目</th>
+            <th>科目</th>
+            <th>科目</th>
+            <th>科目</th>
+            <th>科目</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
