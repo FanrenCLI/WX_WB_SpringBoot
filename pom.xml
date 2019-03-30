@@ -11,7 +11,7 @@
     <groupId>com.fanren</groupId>
     <artifactId>wx</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>wx</name>
     <description>wx_springboot</description>
 

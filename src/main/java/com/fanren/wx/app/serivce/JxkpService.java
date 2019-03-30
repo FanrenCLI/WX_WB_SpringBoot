@@ -1,7 +1,6 @@
 package com.fanren.wx.app.serivce;
 
-import com.fanren.wx.app.dao.JxkpBackEntity;
-import com.fanren.wx.app.pojo.JwtzBackEntity;
+import com.fanren.wx.app.pojo.JxkpBackEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;

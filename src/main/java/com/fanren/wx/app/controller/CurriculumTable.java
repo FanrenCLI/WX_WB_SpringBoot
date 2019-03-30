@@ -28,7 +28,9 @@ public class CurriculumTable {
     @GetMapping(value = "/curr")
     public List<CurriculumBackEntity> getCurriculumInfo(@RequestParam(value = "classes") String classes,
                                                         @RequestParam(value="major") String major){
+
         classes=HandlerClassses.MixClassesAndMajor(classes,major);
+        System.out.println(classes);
         List <Curriculum> curricula_list=curriculumService.getCurrInfo(classes);
         List<CurriculumBackEntity> result_list=new ArrayList<>();
         for(int i=0;i<curricula_list.size();i++){

@@ -1,4 +1,4 @@
-package com.fanren.wx.app.dao;
+package com.fanren.wx.app.pojo;
 
 import lombok.Getter;
 import lombok.Setter;

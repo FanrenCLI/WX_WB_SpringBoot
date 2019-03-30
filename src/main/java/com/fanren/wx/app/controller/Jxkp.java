@@ -1,6 +1,6 @@
 package com.fanren.wx.app.controller;
 
-import com.fanren.wx.app.dao.JxkpBackEntity;
+import com.fanren.wx.app.pojo.JxkpBackEntity;
 import com.fanren.wx.app.serivce.JxkpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
