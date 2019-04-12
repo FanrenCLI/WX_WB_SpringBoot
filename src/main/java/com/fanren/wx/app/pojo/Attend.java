@@ -9,6 +9,15 @@ public class Attend {
 
     private String time;
 
+    public Attend(String id,String name,String className,String time){
+        this.studentId=id;
+        this.studentName=name;
+        this.className=className;
+        this.time=time;
+    }
+    public Attend(){
+
+    }
     public String getStudentId() {
         return studentId;
     }
