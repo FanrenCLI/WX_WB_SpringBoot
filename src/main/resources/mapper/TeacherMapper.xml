@@ -287,4 +287,11 @@
       teach_curriculum = #{teachCurriculum,jdbcType=VARCHAR}
     where teacher_ID = #{teacherId,jdbcType=VARCHAR}
   </update>
+
+
+
+<!--自定义方法Bylujie-->
+  <select id="getTeacherInfoByNameOrCurr" resultMap="BaseResultMap">
+    select * from teacher_list where department=#{NameOrCurr} or name=#{NameOrCurr}
+  </select>
 </mapper>

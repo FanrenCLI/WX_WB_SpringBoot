@@ -2,12 +2,12 @@ package com.fanren.wx.app.dao;
 
 import com.fanren.wx.app.pojo.Exam;
 import com.fanren.wx.app.pojo.ExamExample;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
-@Repository
+import org.apache.ibatis.annotations.Param;
+
 public interface ExamMapper {
+    List<Exam> getExamInfoByClasses(String classes);
+
     long countByExample(ExamExample example);
 
     int deleteByExample(ExamExample example);

@@ -2,11 +2,9 @@ package com.fanren.wx.app.dao;
 
 import com.fanren.wx.app.pojo.Attend;
 import com.fanren.wx.app.pojo.AttendExample;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
-@Repository
+import org.apache.ibatis.annotations.Param;
+
 public interface AttendMapper {
     long countByExample(AttendExample example);
 

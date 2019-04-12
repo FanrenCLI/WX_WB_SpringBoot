@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fanren.wx.app.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.fanren.wx.app.pojo.User">
-    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
     <result column="role" jdbcType="VARCHAR" property="role" />
@@ -94,6 +95,7 @@
     delete from user_list
     where user_id = #{userId,jdbcType=VARCHAR}
   </delete>
+
   <delete id="deleteByExample" parameterType="com.fanren.wx.app.pojo.UserExample">
     delete from user_list
     <if test="_parameter != null">

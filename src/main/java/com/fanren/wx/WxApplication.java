@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 
-@MapperScan("com.fanren.wx")
+@MapperScan("com.fanren.wx.app.dao")
 @ComponentScan("com.fanren.wx")
 @SpringBootApplication
 public class WxApplication {
